@@ -21,7 +21,6 @@ class UserRepository {
           jsonDecode(prefs.getString('current_user')!) as Map<String, dynamic>;
       user = UserModel.fromJson(userMap);
 
-      //print("userfound ${user!.toJson()}");
     } else {
       // print("user null");
       return user;
