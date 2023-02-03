@@ -1,3 +1,4 @@
+import 'package:dream_game/pages/login/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +34,11 @@ class App extends StatelessWidget {
               authenticationRepository: authenticationRepository,
               userRepository: userRepository,
             ),
+          ),
+          BlocProvider<LoginCubit>(
+            create: (BuildContext context) => LoginCubit(
+                authenticationRepository: authenticationRepository,
+                userRepository: userRepository),
           ),
         ],
         child: AppView(
@@ -86,8 +92,8 @@ class _AppViewState extends State<AppView> {
                 case AuthenticationStatus.unauthenticated:
                   print('app:-unauthenticated');
 
-                  _navigator!.pushNamedAndRemoveUntil(
-                      '/LandingPage', (route) => false);
+                  _navigator!
+                      .pushNamedAndRemoveUntil('/LoginPage', (route) => false);
 
                   break;
                 default:

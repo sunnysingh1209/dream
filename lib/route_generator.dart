@@ -1,4 +1,5 @@
 import 'package:dream_game/pages/landing_page/landing_page.dart';
+import 'package:dream_game/pages/login/view/login_form.dart';
 import 'package:dream_game/splash.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +16,8 @@ class RouteGenerator {
       case '/LandingPage':
         return const LandingPage().route();
       //
-      // case '/LoginPage':
-      //   return LoginPage.route();
+      case '/LoginPage':
+        return LoginForm.route();
       //
       // case '/SignUpPage':
       //   return SignupPage.route();
