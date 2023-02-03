@@ -47,6 +47,9 @@ class _LoginFormState extends State<LoginForm> {
                             height: config.AppConfig(context).appHeight(10),
                             width: config.AppConfig(context).appWidth(40),
                           ),
+                          SizedBox(
+                            height: config.AppConfig(context).appHeight(32.0),
+                          ),
                           Text(
                             'Sign in to continue',
                             style: TextStyle(
@@ -54,9 +57,9 @@ class _LoginFormState extends State<LoginForm> {
                                 fontSize: 18,
                                 fontWeight: config.FontFamily().book),
                             textAlign: TextAlign.center,
-                          ), SizedBox(
-                            height: config.AppConfig(context)
-                                .appHeight(1.0),
+                          ),
+                          SizedBox(
+                            height: config.AppConfig(context).appHeight(1.0),
                           ),
                           Container(
                             height: config.AppConfig(context).appHeight(24),
