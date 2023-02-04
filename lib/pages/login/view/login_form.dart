@@ -1,5 +1,6 @@
 import 'package:dream_game/helper/route_arguement.dart';
 import 'package:dream_game/pages/login/cubit/login_cubit.dart';
+import 'package:dream_game/repos/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dream_game/helper/app_config.dart' as config;
@@ -258,6 +259,8 @@ class _LoginButton extends StatelessWidget {
               onPressed: () {
                 if (state.status.isValidated) {
                   // context.read<LoginCubit>().doLogin();
+                  navigatorKey.currentState!.pushNamed('/OTPPage',
+                      arguments: RouteArguments(id: state.phone.value));
                 }
               }),
         );

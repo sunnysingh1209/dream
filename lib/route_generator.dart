@@ -1,5 +1,6 @@
-import 'package:dream_game/pages/landing_page/landing_page.dart';
+import 'package:dream_game/helper/route_arguement.dart';
 import 'package:dream_game/pages/login/view/login_form.dart';
+import 'package:dream_game/pages/otp/view/otp_page.dart';
 import 'package:dream_game/splash.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +14,6 @@ class RouteGenerator {
       case '/Splash':
         return MaterialPageRoute<void>(builder: (_) => SplashPage());
 
-      case '/LandingPage':
-        return const LandingPage().route();
       //
       case '/LoginPage':
         return LoginForm.route();
@@ -25,8 +24,8 @@ class RouteGenerator {
       // case '/ForgotPage':
       //   return ForgotPage.route();
       //
-      // case '/OTPPage':
-      //   return OTPPage.route(routeArguments: args as RouteArguments);
+      case '/OTPPage':
+        return OtpPage.route(routeArguments: args as RouteArguments);
       //
       // case '/HomePage':
       //   return HomePage.route();
