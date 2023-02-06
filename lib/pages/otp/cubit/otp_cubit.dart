@@ -6,6 +6,8 @@ import 'package:dream_game/repos/user_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 
+import 'package:http/http.dart';
+
 part 'otp_state.dart';
 
 class OtpCubit extends Cubit<OtpState> {
@@ -25,5 +27,21 @@ class OtpCubit extends Cubit<OtpState> {
   void onOtpChanged(String? value) {
     emit(state.copyWith(
         otp: OTP.dirty(value!), status: Formz.validate([OTP.dirty(value)])));
+  }
+
+  void onOtpSubmit() async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+
+    var map = Map<String, dynamic>();
+    map['email'] = 'wa';
+    map['password'] = '';
+    Response response = await _authenticationRepository.logIn(data: map);
+    if (response.statusCode == 200) {
+      _userRepository.setCurrentUser(response.body).then((value) {
+        emit(state.copyWith(status: FormzStatus.submissionSuccess));
+        _authenticationRepository.controller
+            .add(AuthenticationStatus.authenticated);
+      });
+    }
   }
 }

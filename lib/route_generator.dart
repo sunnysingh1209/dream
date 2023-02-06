@@ -1,4 +1,5 @@
 import 'package:dream_game/helper/route_arguement.dart';
+import 'package:dream_game/pages/home/view/home_page.dart';
 import 'package:dream_game/pages/login/view/login_form.dart';
 import 'package:dream_game/pages/otp/view/otp_page.dart';
 import 'package:dream_game/splash.dart';
@@ -26,6 +27,9 @@ class RouteGenerator {
       //
       case '/OTPPage':
         return OtpPage.route(routeArguments: args as RouteArguments);
+
+      case '/HomePage':
+        return HomePage.route();
       //
       // case '/HomePage':
       //   return HomePage.route();

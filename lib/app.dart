@@ -37,7 +37,8 @@ class App extends StatelessWidget {
           ),
           BlocProvider<LoginCubit>(
             create: (BuildContext context) => LoginCubit(
-                authenticationRepository: context.read<AuthenticationRepository>(),
+                authenticationRepository:
+                    context.read<AuthenticationRepository>(),
                 userRepository: userRepository),
           ),
         ],
@@ -81,12 +82,8 @@ class _AppViewState extends State<AppView> {
               print('checkStatus ${state.status}');
               switch (state.status) {
                 case AuthenticationStatus.authenticated:
-                  state.user!.data!.user!.role ==
-                          AppConstants.IS_COOK.toString()
-                      ? _navigator!.pushNamedAndRemoveUntil(
-                          '/DashboardCook', (route) => false)
-                      : _navigator!.pushNamedAndRemoveUntil(
-                          '/HomePage', (route) => false);
+                  _navigator!
+                      .pushNamedAndRemoveUntil('/HomePage', (route) => false);
                   break;
 
                 case AuthenticationStatus.unauthenticated:

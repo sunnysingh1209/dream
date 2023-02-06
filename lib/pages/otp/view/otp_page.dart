@@ -1,5 +1,6 @@
 import 'package:dream_game/helper/route_arguement.dart';
 import 'package:dream_game/pages/otp/cubit/otp_cubit.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dream_game/repos/authentication_repository.dart';
@@ -204,17 +205,25 @@ class _OtpSubmitButton extends StatelessWidget {
                       ],
               )),
           child: MaterialButton(
-              child: Text(
-                'SUBMIT',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: config.FontFamily().medium),
-              ),
+              child: state.status.isSubmissionInProgress
+                  ? const Center(
+                      child: CupertinoActivityIndicator(
+                        color: Colors.white,
+                      ),
+                    )
+                  : Text(
+                      'SUBMIT',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: config.FontFamily().medium),
+                    ),
               height: config.AppConfig(context).appHeight(6),
               minWidth: config.AppConfig(context).appWidth(100),
               onPressed: () {
-                if (state.status.isValidated) {}
+                if (state.status.isValidated) {
+                  context.read<OtpCubit>().onOtpSubmit();
+                }
               }),
         );
       },

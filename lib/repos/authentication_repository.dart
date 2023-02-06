@@ -40,18 +40,21 @@ class AuthenticationRepository {
     // try {
 
     final url =
-        '${GlobalConfiguration().getValue<String>('api_base_url')}login';
+        // '${GlobalConfiguration().getValue<String>('api_base_url')}login';
+        'https://dummyjson.com/products/1';
 
     print(url);
 
     final client = http.Client();
 
-    final response = await client.post(Uri.parse(url),
-        // headers: {HttpHeaders.contentTypeHeader: 'application/json'},
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: json.encode(data));
+    final response = await client.get(
+      Uri.parse(url),
+      // headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      /*body: json.encode(data)*/
+    );
     print(response.body);
     if (response.statusCode == 200) {
       return response;
@@ -98,7 +101,7 @@ class AuthenticationRepository {
       Uri.parse(url),
       headers: {
         'accept': 'application/json',
-        'Authorization': 'Bearer ${userModel!.data!.accessToken}'
+        // 'Authorization': 'Bearer ${userModel!.data!.accessToken}'
       },
     );
 
