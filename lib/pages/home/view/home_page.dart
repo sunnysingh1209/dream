@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key, required this.parentKey}) : super(key: key);
 
-  static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => HomePage());
-  }
+  final GlobalKey<ScaffoldState> parentKey;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -18,7 +16,15 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
+      appBar: AppBar(
+        title: const Text('Home'),
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {
+            widget.parentKey.currentState!.openDrawer();
+          },
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

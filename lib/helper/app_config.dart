@@ -46,6 +46,22 @@ class AppColors {
     }
   }
 
+  Color appbarBackColor(double opacity) {
+    try {
+      return const Color(0xFF0E1823).withOpacity(opacity);
+    } catch (e) {
+      return const Color(0xFFCCCCCC).withOpacity(opacity);
+    }
+  }
+
+  Color drawerItemBackColor(double opacity) {
+    try {
+      return const Color(0xFF26405E).withOpacity(opacity);
+    } catch (e) {
+      return const Color(0xFFCCCCCC).withOpacity(opacity);
+    }
+  }
+
   Color secondColor(double opacity) {
     try {
       // return const Color(0xFF90A0B7);
@@ -194,11 +210,14 @@ class AppColors {
     }
   }
 }
+
 class FontFamily {
   static final FontFamily _singleton = FontFamily._internal();
+
   factory FontFamily() {
     return _singleton;
   }
+
   FontFamily._internal();
 
   String itcAvantGardeGothicStdFontFamily = "itc_avant_garde_gothic_std";
@@ -208,4 +227,3 @@ class FontFamily {
   FontWeight demi = FontWeight.w600;
   FontWeight bold = FontWeight.w700;
 }
-

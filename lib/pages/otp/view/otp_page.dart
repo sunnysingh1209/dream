@@ -222,7 +222,9 @@ class _OtpSubmitButton extends StatelessWidget {
               minWidth: config.AppConfig(context).appWidth(100),
               onPressed: () {
                 if (state.status.isValidated) {
-                  context.read<OtpCubit>().onOtpSubmit();
+                  state.status.isSubmissionInProgress
+                      ? null
+                      : context.read<OtpCubit>().onOtpSubmit();
                 }
               }),
         );
