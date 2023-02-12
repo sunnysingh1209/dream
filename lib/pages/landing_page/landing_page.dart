@@ -116,7 +116,7 @@ class _LandingPageState extends State<LandingPage> {
                 icon: Icons.logout,
                 text: 'Logout',
                 onTap: () {
-                  _onSelectItem(1);
+                  context.read<AuthenticationRepository>().logOut();
                 }),
           ],
         ),
