@@ -37,32 +37,58 @@ class AuthenticationRepository {
   Future<dynamic?> logIn({
     required Map<String, dynamic> data,
   }) async {
-    // try {
+    try {
+      final url =
+          '${GlobalConfiguration().getValue<String>('api_base_url')}Auth/login';
+      // 'https://dummyjson.com/products/1';
 
-    final url =
-        // '${GlobalConfiguration().getValue<String>('api_base_url')}login';
-        'https://dummyjson.com/products/1';
+      print(url);
 
-    print(url);
+      final client = http.Client();
 
-    final client = http.Client();
-
-    final response = await client.get(
-      Uri.parse(url),
-      // headers: {HttpHeaders.contentTypeHeader: 'application/json'},
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      /*body: json.encode(data)*/
-    );
-    print(response.body);
-    if (response.statusCode == 200) {
+      final response = await client.post(Uri.parse(url),
+          // headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: json.encode(data));
+      print(response.body);
+      if (response.statusCode == 200) {
+        return response;
+      }
       return response;
+    } catch (e) {
+      print('exception $e');
+      return e;
     }
-    return response;
-    // } catch (e) {
-    //   print('exception $e');
-    // }
+  }
+
+  Future<dynamic?> sendOtp({
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      final url =
+          '${GlobalConfiguration().getValue<String>('api_base_url')}Auth/otp';
+
+      print(url);
+
+      final client = http.Client();
+
+      final response = await client.post(Uri.parse(url),
+          // headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: json.encode(data));
+      print(response.body);
+      if (response.statusCode == 200) {
+        return response;
+      }
+      return response;
+    } catch (e) {
+      print('exception $e');
+      return e;
+    }
   }
 
   Future<dynamic?> forgot({

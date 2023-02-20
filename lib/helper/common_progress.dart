@@ -8,13 +8,12 @@ class CommonProgressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Theme.of(context).hintColor.withOpacity(0.3),
         alignment: Alignment.center,
         height: config.AppConfig(context).appHeight(100),
         width: config.AppConfig(context).appWidth(100),
         child: Center(
           child: CupertinoActivityIndicator(
-            radius: 30,
+            radius: 10,
             color: Theme.of(context).hintColor,
           ),
         ));

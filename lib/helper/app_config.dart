@@ -38,13 +38,6 @@ class AppConfig {
 }
 
 class AppColors {
-  Color mainColor(double opacity) {
-    try {
-      return const Color.fromARGB(255, 28, 36, 89);
-    } catch (e) {
-      return const Color(0xFFCCCCCC).withOpacity(opacity);
-    }
-  }
 
   Color appbarBackColor(double opacity) {
     try {

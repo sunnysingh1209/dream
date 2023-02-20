@@ -5,6 +5,7 @@ import 'package:dream_game/pages/landing_page/landing_page.dart';
 import 'package:dream_game/pages/login/view/login_form.dart';
 import 'package:dream_game/pages/otp/view/otp_page.dart';
 import 'package:dream_game/pages/profile/cubit/profile_cubit.dart';
+import 'package:dream_game/repos/user_repository.dart';
 import 'package:dream_game/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +30,9 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => MultiBlocProvider(providers: [
                   BlocProvider<HomeCubit>(
-                    create: (BuildContext context) => HomeCubit(),
+                    create: (BuildContext context) => HomeCubit(
+                        userRepository: context.read<UserRepository>())
+                      ..onGetUserWallet(),
                   ),
                   BlocProvider<ProfileCubit>(
                     create: (BuildContext context) => ProfileCubit(),

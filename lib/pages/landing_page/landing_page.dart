@@ -1,3 +1,4 @@
+import 'package:dream_game/auth_bloc/authentication/authentication_bloc.dart';
 import 'package:dream_game/helper/app_config.dart' as config;
 import 'package:dream_game/pages/home/view/home_page.dart';
 import 'package:dream_game/pages/profile/view/profile_page.dart';
@@ -48,12 +49,20 @@ class _LandingPageState extends State<LandingPage> {
             new UserAccountsDrawerHeader(
               decoration:
                   BoxDecoration(color: config.AppColors().appbarBackColor(1.0)),
-              accountName: Text(
-                "Pinkesh Darji",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: config.FontFamily().book,
-                ),
+              accountName: Builder(
+                builder: (context) {
+                  final username = context.select(
+                    (AuthenticationBloc bloc) =>
+                        bloc.state.user?.data?.username,
+                  );
+                  return Text(
+                    username ?? '',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: config.FontFamily().book,
+                    ),
+                  );
+                },
               ),
               accountEmail: Text(
                 "pinkesh.earth@gmail.com",

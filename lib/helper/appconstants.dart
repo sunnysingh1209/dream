@@ -9,6 +9,7 @@ class AppConstants {
   static const String DINE_IN = 'DINE_IN';
   static const String TAKE_AWAY = 'TAKE_AWAY';
   static const String IS_COOK = 'Restaurant';
+  static const String CURRENT_USER = 'current_user';
   static const List<String> DAYS = [
     'Mon',
     'Tue',

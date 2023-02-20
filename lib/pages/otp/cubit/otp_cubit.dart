@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dream_game/helper/helper.dart';
 import 'package:dream_game/helper/route_arguement.dart';
 import 'package:dream_game/model/otp.dart';
 import 'package:dream_game/repos/authentication_repository.dart';
@@ -33,12 +34,13 @@ class OtpCubit extends Cubit<OtpState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
     var map = Map<String, dynamic>();
-    map['email'] = 'wa';
-    map['password'] = '';
+    map['mobileNo'] = this._routeArguments.mobileNo;
+    map['otp'] = state.otp.value;
     Response response = await _authenticationRepository.logIn(data: map);
     if (response.statusCode == 200) {
       _userRepository.setCurrentUser(response.body).then((value) {
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
+        Helper.showToast('Success');
         _authenticationRepository.controller
             .add(AuthenticationStatus.authenticated);
       });

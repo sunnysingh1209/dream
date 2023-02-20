@@ -9,7 +9,7 @@ class OTP extends FormzInput<String, OTPValidationError> {
 
   @override
   OTPValidationError? validator(String value) {
-    return value.isNotEmpty == true && value.length == 4
+    return value.isNotEmpty == true && value.length == 6
         ? null
         : OTPValidationError.empty;
   }

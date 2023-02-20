@@ -110,35 +110,37 @@ class _OtpPageWidgetState extends State<OtpPage> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Pinput(
-                                      separator: SizedBox(width: 10),
-                                      defaultPinTheme: PinTheme(
-                                        width: config.AppConfig(context)
-                                            .appWidth(13),
-                                        height: config.AppConfig(context)
-                                            .appHeight(6),
-                                        textStyle: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontWeight:
-                                                config.FontFamily().medium),
-                                        decoration: BoxDecoration(
-                                          color: config.AppColors()
-                                              .textFieldBackgroundColor(1),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                    Flexible(
+                                      child: Pinput(
+                                        separator: SizedBox(width: 10),
+                                        defaultPinTheme: PinTheme(
+                                          width: config.AppConfig(context)
+                                              .appWidth(13),
+                                          height: config.AppConfig(context)
+                                              .appHeight(6),
+                                          textStyle: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight:
+                                                  config.FontFamily().medium),
+                                          decoration: BoxDecoration(
+                                            color: config.AppColors()
+                                                .textFieldBackgroundColor(1),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
                                         ),
+                                        length: 6,
+                                        pinputAutovalidateMode:
+                                            PinputAutovalidateMode.onSubmit,
+                                        showCursor: true,
+                                        onChanged: (value) {
+                                          context
+                                              .read<OtpCubit>()
+                                              .onOtpChanged(value);
+                                        },
+                                        onCompleted: (pin) {},
                                       ),
-                                      length: 4,
-                                      pinputAutovalidateMode:
-                                          PinputAutovalidateMode.onSubmit,
-                                      showCursor: true,
-                                      onChanged: (value) {
-                                        context
-                                            .read<OtpCubit>()
-                                            .onOtpChanged(value);
-                                      },
-                                      onCompleted: (pin) {},
                                     ),
                                   ],
                                 ),
