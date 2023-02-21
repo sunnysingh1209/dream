@@ -32,7 +32,8 @@ class RouteGenerator {
                   BlocProvider<HomeCubit>(
                     create: (BuildContext context) => HomeCubit(
                         userRepository: context.read<UserRepository>())
-                      ..onGetUserWallet(),
+                      ..onGetUserWallet()
+                      ..onGetGamePlayGame(),
                   ),
                   BlocProvider<ProfileCubit>(
                     create: (BuildContext context) => ProfileCubit(),

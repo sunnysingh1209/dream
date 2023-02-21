@@ -38,7 +38,6 @@ class AppConfig {
 }
 
 class AppColors {
-
   Color appbarBackColor(double opacity) {
     try {
       return const Color(0xFF0E1823).withOpacity(opacity);
@@ -57,8 +56,15 @@ class AppColors {
 
   Color secondColor(double opacity) {
     try {
-      // return const Color(0xFF90A0B7);
       return Colors.grey.shade500;
+    } catch (e) {
+      return const Color(0xFFCCCCCC).withOpacity(opacity);
+    }
+  }
+
+  Color homeTitleColor(double opacity) {
+    try {
+      return const Color(0xFF6D7B8F).withOpacity(opacity);
     } catch (e) {
       return const Color(0xFFCCCCCC).withOpacity(opacity);
     }
@@ -67,7 +73,6 @@ class AppColors {
   Color accentColor(double opacity) {
     try {
       return const Color(0xFF18489C);
-      // return  const Color(0xFF4FCD07);
     } catch (e) {
       return const Color(0xFFCCCCCC).withOpacity(opacity);
     }
@@ -75,9 +80,7 @@ class AppColors {
 
   Color colorPrimary(double opacity) {
     try {
-      // return  const Color.fromARGB(255, 42, 49, 91);
       return const Color(0xff0071BC);
-      // return const Color(0xFF4A439F);
     } catch (e) {
       return const Color(0xFFCCCCCC).withOpacity(opacity);
     }
@@ -85,9 +88,7 @@ class AppColors {
 
   Color colorPrimaryLight(double opacity) {
     try {
-      // return  const Color.fromARGB(255, 42, 49, 91);
       return Colors.grey;
-      // return Color(0xffaca1f2);
     } catch (e) {
       return const Color(0xFFCCCCCC).withOpacity(opacity);
     }
@@ -95,11 +96,7 @@ class AppColors {
 
   Color colorPrimaryDark(double opacity) {
     try {
-      // return  const Color(0xFF286704).withOpacity(opacity);
-      // return  Colors.black;
       return const Color(0xFF666666);
-      // return const Color(0xFF4A439F);
-      // return const Color(0xFF7366FF);
     } catch (e) {
       return const Color(0xFFCCCCCC).withOpacity(opacity);
     }
@@ -129,75 +126,11 @@ class AppColors {
     }
   }
 
-  // Color mainDarkColor(double opacity) {
-  //   try {
-  //     return Color(int.parse(settingRepo.setting.value.mainDarkColor.replaceAll("#", "0xFF"))).withOpacity(opacity);
-  //   } catch (e) {
-  //     return Color(0xFFCCCCCC).withOpacity(opacity);
-  //   }
-  // }
-
-  // Color secondDarkColor(double opacity) {
-  //   try {
-  //     return Color(int.parse(settingRepo.setting.value.secondDarkColor.replaceAll("#", "0xFF"))).withOpacity(opacity);
-  //   } catch (e) {
-  //     return Color(0xFFCCCCCC).withOpacity(opacity);
-  //   }
-  // }
-
-  // Color accentDarkColor(double opacity) {
-  //   try {
-  //     return Color(int.parse(settingRepo.setting.value.accentDarkColor.replaceAll("#", "0xFF"))).withOpacity(opacity);
-  //   } catch (e) {
-  //     return Color(0xFFCCCCCC).withOpacity(opacity);
-  //   }
-  // }
-
   Color scaffoldColor(double opacity) {
     // TODO test if brightness is dark or not
     try {
       // return  const Color(0xffeee6ff).withOpacity(1);
       return Colors.white;
-    } catch (e) {
-      return const Color(0xFFCCCCCC).withOpacity(opacity);
-    }
-  }
-
-  Color presentButtonColor(double opacity) {
-    try {
-      return const Color(0xff8CD0E8).withOpacity(1);
-    } catch (e) {
-      return const Color(0xFFCCCCCC).withOpacity(opacity);
-    }
-  }
-
-  Color absentButtonColor(double opacity) {
-    try {
-      return const Color(0xff8CB648).withOpacity(1);
-    } catch (e) {
-      return const Color(0xFFCCCCCC).withOpacity(opacity);
-    }
-  }
-
-  Color presentButtonBorderColor(double opacity) {
-    try {
-      return const Color(0xff63B8DD).withOpacity(1);
-    } catch (e) {
-      return const Color(0xFFCCCCCC).withOpacity(opacity);
-    }
-  }
-
-  Color buttonDisableColor(double opacity) {
-    try {
-      return const Color(0xffF2F3F6).withOpacity(1);
-    } catch (e) {
-      return const Color(0xFFCCCCCC).withOpacity(opacity);
-    }
-  }
-
-  Color buttonDisableBorderColor(double opacity) {
-    try {
-      return const Color(0xffDCE1E7).withOpacity(1);
     } catch (e) {
       return const Color(0xFFCCCCCC).withOpacity(opacity);
     }
