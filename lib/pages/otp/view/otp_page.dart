@@ -13,15 +13,15 @@ class OtpPage extends StatefulWidget {
   const OtpPage({Key? key}) : super(key: key);
 
   static Route route({RouteArguments? routeArguments}) {
-    return MaterialPageRoute<void>(
-      builder: (_) => BlocProvider<OtpCubit>(
-        create: (BuildContext context) => OtpCubit(
-            userRepository: context.read<UserRepository>(),
-            authenticationRepository: context.read<AuthenticationRepository>(),
-            routeArguments: routeArguments!),
-        child: OtpPage(),
-      ),
-    );
+      return MaterialPageRoute<void>(
+        builder: (_) => BlocProvider<OtpCubit>(
+          create: (BuildContext context) => OtpCubit(
+              userRepository: context.read<UserRepository>(),
+              authenticationRepository: context.read<AuthenticationRepository>(),
+              routeArguments: routeArguments!),
+          child: OtpPage(),
+        ),
+      );
   }
 
   @override

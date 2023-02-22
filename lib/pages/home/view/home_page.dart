@@ -1,5 +1,7 @@
 import 'package:dream_game/helper/common_progress.dart';
+import 'package:dream_game/helper/route_arguement.dart';
 import 'package:dream_game/pages/home/cubit/home_cubit.dart';
+import 'package:dream_game/repos/authentication_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dream_game/helper/app_config.dart' as config;
@@ -137,152 +139,161 @@ class _HomePageState extends State<HomePage> {
                                     child: ListView.separated(
                                         shrinkWrap: true,
                                         itemBuilder: (context, index) {
-                                          return Padding(
-                                            padding: EdgeInsets.all(
-                                                config.AppConfig(context)
-                                                    .appWidth(2)),
-                                            child: Container(
-                                              height: config.AppConfig(context)
-                                                  .appHeight(12),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                    Radius.circular(
+                                          return InkWell(
+                                            onTap: () {
+                                              navigatorKey.currentState
+                                                  ?.pushNamed('/BettingPage',
+                                                      arguments: RouteArguments(
+                                                          playGameData: state
+                                                                  .gamePlayGame
+                                                                  ?.playGameData?[
+                                                              index]));
+                                            },
+                                            child: Padding(
+                                              padding: EdgeInsets.all(
+                                                  config.AppConfig(context)
+                                                      .appWidth(2)),
+                                              child: Container(
+                                                height:
+                                                    config.AppConfig(context)
+                                                        .appHeight(12),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                      Radius.circular(
+                                                          config.AppConfig(
+                                                                  context)
+                                                              .appWidth(1.6)),
+                                                    ),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: const Color(
+                                                                  0xff0000001C)
+                                                              .withOpacity(
+                                                                  0.11),
+                                                          blurRadius: 24,
+                                                          offset: Offset(0, 25))
+                                                    ]),
+                                                child: Padding(
+                                                    padding: EdgeInsets.all(
                                                         config.AppConfig(
                                                                 context)
-                                                            .appWidth(1.6)),
-                                                  ),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                        color: const Color(
-                                                                0xff0000001C)
-                                                            .withOpacity(0.11),
-                                                        blurRadius: 24,
-                                                        offset: Offset(0, 25))
-                                                  ]),
-                                              child: Padding(
-                                                  padding: EdgeInsets.all(
-                                                      config.AppConfig(context)
-                                                          .appWidth(3)),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        '${state.gamePlayGame?.data?[index].gameName}',
-                                                        style: TextStyle(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor,
-                                                            fontSize: 18,
-                                                            fontWeight: config
-                                                                    .FontFamily()
-                                                                .medium),
-                                                      ),
-                                                      Spacer(),
-                                                      Flexible(
-                                                        child: Row(
-                                                          children: [
-                                                            Text(
-                                                              'Start Time : ',
-                                                              style: TextStyle(
-                                                                  color: config
-                                                                          .AppColors()
-                                                                      .homeTitleColor(
-                                                                          1.0),
-                                                                  fontSize: 16,
-                                                                  fontWeight: config
-                                                                          .FontFamily()
-                                                                      .medium),
-                                                            ),
-                                                            Text(
-                                                              '${state.gamePlayGame?.data?[index].startTime}',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontSize: 18,
-                                                                  fontWeight:
-                                                                      config.FontFamily()
-                                                                          .demi),
-                                                            ),
-                                                          ],
+                                                            .appWidth(3)),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          '${state.gamePlayGame?.playGameData?[index].gameName}',
+                                                          style: TextStyle(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColor,
+                                                              fontSize: 18,
+                                                              fontWeight: config
+                                                                      .FontFamily()
+                                                                  .medium),
                                                         ),
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          Expanded(
-                                                            child: Row(
-                                                              children: [
-                                                                Text(
-                                                                  'Last Time : ',
-                                                                  style: TextStyle(
-                                                                      color: config
-                                                                              .AppColors()
-                                                                          .homeTitleColor(
-                                                                              1.0),
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontWeight:
-                                                                          config.FontFamily()
-                                                                              .medium),
-                                                                ),
-                                                                Text(
-                                                                  '${state.gamePlayGame?.data?[index].lastTime}',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          18,
-                                                                      fontWeight:
-                                                                          config.FontFamily()
-                                                                              .demi),
-                                                                ),
-                                                              ],
-                                                            ),
+                                                        Spacer(),
+                                                        Flexible(
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                'Start Time : ',
+                                                                style: TextStyle(
+                                                                    color: config
+                                                                            .AppColors()
+                                                                        .homeTitleColor(
+                                                                            1.0),
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        config.FontFamily()
+                                                                            .medium),
+                                                              ),
+                                                              Text(
+                                                                '${state.gamePlayGame?.playGameData?[index].startTime}',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        18,
+                                                                    fontWeight:
+                                                                        config.FontFamily()
+                                                                            .demi),
+                                                              ),
+                                                            ],
                                                           ),
-                                                          Expanded(
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .end,
-                                                              children: [
-                                                                Text(
-                                                                  'Result Time : ',
-                                                                  style: TextStyle(
-                                                                      color: config
-                                                                              .AppColors()
-                                                                          .homeTitleColor(
-                                                                              1.0),
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontWeight:
-                                                                          config.FontFamily()
-                                                                              .medium),
-                                                                ),
-                                                                Flexible(
-                                                                  child: Text(
-                                                                    '${state.gamePlayGame?.data?[index].gameResultTime}',
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Expanded(
+                                                              child: Row(
+                                                                children: [
+                                                                  Text(
+                                                                    'Last Time : ',
+                                                                    style: TextStyle(
+                                                                        color: config.AppColors().homeTitleColor(
+                                                                            1.0),
+                                                                        fontSize:
+                                                                            16,
+                                                                        fontWeight:
+                                                                            config.FontFamily().medium),
+                                                                  ),
+                                                                  Text(
+                                                                    '${state.gamePlayGame?.playGameData?[index].lastTime}',
                                                                     style: TextStyle(
                                                                         color: Colors
-                                                                            .red,
+                                                                            .black,
                                                                         fontSize:
                                                                             18,
                                                                         fontWeight:
                                                                             config.FontFamily().demi),
                                                                   ),
-                                                                ),
-                                                              ],
+                                                                ],
+                                                              ),
                                                             ),
-                                                          ),
-                                                        ],
-                                                      )
-                                                    ],
-                                                  )),
+                                                            Expanded(
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .end,
+                                                                children: [
+                                                                  Text(
+                                                                    'Result Time : ',
+                                                                    style: TextStyle(
+                                                                        color: config.AppColors().homeTitleColor(
+                                                                            1.0),
+                                                                        fontSize:
+                                                                            16,
+                                                                        fontWeight:
+                                                                            config.FontFamily().medium),
+                                                                  ),
+                                                                  Flexible(
+                                                                    child: Text(
+                                                                      '${state.gamePlayGame?.playGameData?[index].gameResultTime}',
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .red,
+                                                                          fontSize:
+                                                                              18,
+                                                                          fontWeight:
+                                                                              config.FontFamily().demi),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        )
+                                                      ],
+                                                    )),
+                                              ),
                                             ),
                                           );
                                         },
@@ -292,9 +303,9 @@ class _HomePageState extends State<HomePage> {
                                                 .appHeight(0.2),
                                           );
                                         },
-                                        itemCount:
-                                            state.gamePlayGame?.data?.length ??
-                                                0),
+                                        itemCount: state.gamePlayGame
+                                                ?.playGameData?.length ??
+                                            0),
                                   ),
                                 ],
                               ),

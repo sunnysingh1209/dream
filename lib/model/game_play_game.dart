@@ -1,16 +1,16 @@
 class GamePlayGame {
   bool? success;
-  List<Data>? data;
+  List<PlayGameData>? playGameData;
   dynamic? errors;
 
-  GamePlayGame({this.success, this.data, this.errors});
+  GamePlayGame({this.success, this.playGameData, this.errors});
 
   GamePlayGame.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     if (json['data'] != null) {
-      data = <Data>[];
+      playGameData = <PlayGameData>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        playGameData!.add(new PlayGameData.fromJson(v));
       });
     }
     errors = json['errors'];
@@ -19,15 +19,15 @@ class GamePlayGame {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['success'] = this.success;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    if (this.playGameData != null) {
+      data['data'] = this.playGameData!.map((v) => v.toJson()).toList();
     }
     data['errors'] = this.errors;
     return data;
   }
 }
 
-class Data {
+class PlayGameData {
   String? id;
   String? gameName;
   String? startTime;
@@ -36,7 +36,7 @@ class Data {
   String? lastTime;
   bool? isLocal;
 
-  Data(
+  PlayGameData(
       {this.id,
       this.gameName,
       this.startTime,
@@ -45,7 +45,7 @@ class Data {
       this.lastTime,
       this.isLocal});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  PlayGameData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     gameName = json['gameName'];
     startTime = json['startTime'];

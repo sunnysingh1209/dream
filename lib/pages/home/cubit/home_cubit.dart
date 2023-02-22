@@ -20,6 +20,10 @@ class HomeCubit extends Cubit<HomeState> {
 
   final UserRepository _userRepository;
 
+  void onClick() async {
+    print('Sunny Singh bhlla ');
+  }
+
   void onGetUserWallet() async {
     print('WalletModule ');
     emit(state.copyWith(status: FormzStatus.submissionInProgress));

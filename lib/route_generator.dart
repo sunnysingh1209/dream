@@ -1,5 +1,6 @@
 import 'package:dream_game/helper/route_arguement.dart';
 import 'package:dream_game/pages/active_play_game/cubit/active_play_game_cubit.dart';
+import 'package:dream_game/pages/betting/view/betting_page.dart';
 import 'package:dream_game/pages/home/cubit/home_cubit.dart';
 import 'package:dream_game/pages/home/view/home_page.dart';
 import 'package:dream_game/pages/landing_page/landing_page.dart';
@@ -26,6 +27,9 @@ class RouteGenerator {
 
       case '/OTPPage':
         return OtpPage.route(routeArguments: args as RouteArguments);
+
+      case '/BettingPage':
+        return BettingPage.route(routeArguments: args as RouteArguments);
 
       case '/LandingPage':
         return MaterialPageRoute(
