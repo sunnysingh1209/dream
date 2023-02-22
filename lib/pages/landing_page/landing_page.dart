@@ -26,6 +26,10 @@ class _LandingPageState extends State<LandingPage> {
         return new ProfilePage(
           parentKey: widget._scaffoldKey,
         );
+      case 2:
+        return new ProfilePage(
+          parentKey: widget._scaffoldKey,
+        );
 
       default:
         return new Text("Error");
@@ -89,7 +93,7 @@ class _LandingPageState extends State<LandingPage> {
                 icon: Icons.gamepad,
                 text: 'Game Result',
                 onTap: () {
-                  _onSelectItem(1);
+                  _onSelectItem(2);
                 }),
             createDrawerBodyItem(
                 icon: Icons.person,

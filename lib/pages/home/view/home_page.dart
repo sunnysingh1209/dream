@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:dream_game/helper/app_config.dart' as config;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key, required this.parentKey}) : super(key: key);
@@ -212,52 +213,59 @@ class _HomePageState extends State<HomePage> {
                                                           ],
                                                         ),
                                                       ),
-                                                      Flexible(
-                                                        child: Row(
-                                                          children: [
-                                                            Expanded(
-                                                              child: Row(
-                                                                children: [
-                                                                  Text(
-                                                                    'Last Time : ',
-                                                                    style: TextStyle(
-                                                                        color: config.AppColors().homeTitleColor(
-                                                                            1.0),
-                                                                        fontSize:
-                                                                            16,
-                                                                        fontWeight:
-                                                                            config.FontFamily().medium),
-                                                                  ),
-                                                                  Text(
-                                                                    '${state.gamePlayGame?.data?[index].lastTime}',
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            18,
-                                                                        fontWeight:
-                                                                            config.FontFamily().demi),
-                                                                  ),
-                                                                ],
-                                                              ),
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: Row(
+                                                              children: [
+                                                                Text(
+                                                                  'Last Time : ',
+                                                                  style: TextStyle(
+                                                                      color: config
+                                                                              .AppColors()
+                                                                          .homeTitleColor(
+                                                                              1.0),
+                                                                      fontSize:
+                                                                          16,
+                                                                      fontWeight:
+                                                                          config.FontFamily()
+                                                                              .medium),
+                                                                ),
+                                                                Text(
+                                                                  '${state.gamePlayGame?.data?[index].lastTime}',
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          18,
+                                                                      fontWeight:
+                                                                          config.FontFamily()
+                                                                              .demi),
+                                                                ),
+                                                              ],
                                                             ),
-                                                            Expanded(
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .end,
-                                                                children: [
-                                                                  Text(
-                                                                    'Result Time : ',
-                                                                    style: TextStyle(
-                                                                        color: config.AppColors().homeTitleColor(
-                                                                            1.0),
-                                                                        fontSize:
-                                                                            16,
-                                                                        fontWeight:
-                                                                            config.FontFamily().medium),
-                                                                  ),
-                                                                  Text(
+                                                          ),
+                                                          Expanded(
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .end,
+                                                              children: [
+                                                                Text(
+                                                                  'Result Time : ',
+                                                                  style: TextStyle(
+                                                                      color: config
+                                                                              .AppColors()
+                                                                          .homeTitleColor(
+                                                                              1.0),
+                                                                      fontSize:
+                                                                          16,
+                                                                      fontWeight:
+                                                                          config.FontFamily()
+                                                                              .medium),
+                                                                ),
+                                                                Flexible(
+                                                                  child: Text(
                                                                     '${state.gamePlayGame?.data?[index].gameResultTime}',
                                                                     style: TextStyle(
                                                                         color: Colors
@@ -267,11 +275,11 @@ class _HomePageState extends State<HomePage> {
                                                                         fontWeight:
                                                                             config.FontFamily().demi),
                                                                   ),
-                                                                ],
-                                                              ),
+                                                                ),
+                                                              ],
                                                             ),
-                                                          ],
-                                                        ),
+                                                          ),
+                                                        ],
                                                       )
                                                     ],
                                                   )),
