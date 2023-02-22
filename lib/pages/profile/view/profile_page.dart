@@ -1,4 +1,5 @@
 import 'package:dream_game/auth_bloc/authentication/authentication_bloc.dart';
+import 'package:dream_game/pages/home/cubit/home_cubit.dart';
 import 'package:dream_game/repos/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -88,7 +89,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     Text(
-                      '87.22',
+                      '${context.read<HomeCubit>().state.userWallet?.wallletData?.balance}',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,

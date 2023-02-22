@@ -1,4 +1,5 @@
 import 'package:dream_game/helper/route_arguement.dart';
+import 'package:dream_game/pages/active_play_game/cubit/active_play_game_cubit.dart';
 import 'package:dream_game/pages/home/cubit/home_cubit.dart';
 import 'package:dream_game/pages/home/view/home_page.dart';
 import 'package:dream_game/pages/landing_page/landing_page.dart';
@@ -37,6 +38,11 @@ class RouteGenerator {
                   ),
                   BlocProvider<ProfileCubit>(
                     create: (BuildContext context) => ProfileCubit(),
+                  ),
+                  BlocProvider<ActivePlayGameCubit>(
+                    create: (BuildContext context) =>
+                        ActivePlayGameCubit(context.read<UserRepository>())
+                          ..onGetActivePlayGame(),
                   )
                 ], child: LandingPage()));
 

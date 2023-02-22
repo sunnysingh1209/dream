@@ -1,5 +1,6 @@
 import 'package:dream_game/auth_bloc/authentication/authentication_bloc.dart';
 import 'package:dream_game/helper/app_config.dart' as config;
+import 'package:dream_game/pages/active_play_game/view/active_play_game_page.dart';
 import 'package:dream_game/pages/home/view/home_page.dart';
 import 'package:dream_game/pages/profile/view/profile_page.dart';
 import 'package:dream_game/repos/authentication_repository.dart';
@@ -27,7 +28,7 @@ class _LandingPageState extends State<LandingPage> {
           parentKey: widget._scaffoldKey,
         );
       case 2:
-        return new ProfilePage(
+        return new ActivePlayGamePage(
           parentKey: widget._scaffoldKey,
         );
 
