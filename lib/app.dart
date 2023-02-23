@@ -107,8 +107,6 @@ class _AppViewState extends State<AppView> {
           // fontFamily: 'Poppins',
           fontFamily: config.FontFamily().itcAvantGardeGothicStdFontFamily,
           primaryColor: config.AppColors().colorPrimary(1),
-          floatingActionButtonTheme: const FloatingActionButtonThemeData(
-              elevation: 0, foregroundColor: Colors.white),
           brightness: Brightness.light,
           accentColor: config.AppColors().accentColor(1),
           dividerColor: config.AppColors().accentColor(0.1),

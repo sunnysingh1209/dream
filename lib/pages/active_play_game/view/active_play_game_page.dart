@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dream_game/helper/app_config.dart' as config;
 import 'package:formz/formz.dart';
+import 'package:intl/intl.dart';
 
 class ActivePlayGamePage extends StatefulWidget {
   const ActivePlayGamePage({Key? key, required this.parentKey})
@@ -125,16 +126,34 @@ class _ActivePlayGamePageState extends State<ActivePlayGamePage> {
                                                         MainAxisAlignment
                                                             .center,
                                                     children: [
-                                                      Text(
-                                                        '${state.activePlayGame?.data?[index].gameName}',
-                                                        style: TextStyle(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor,
-                                                            fontSize: 18,
-                                                            fontWeight: config
-                                                                    .FontFamily()
-                                                                .medium),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            '${state.activePlayGame?.data?[index].gameName}',
+                                                            style: TextStyle(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                                fontSize: 18,
+                                                                fontWeight: config
+                                                                        .FontFamily()
+                                                                    .medium),
+                                                          ),
+                                                          Text(
+                                                            '${state.activePlayGame?.data?[index].status}',
+                                                            style: TextStyle(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                                fontSize: 18,
+                                                                fontWeight: config
+                                                                        .FontFamily()
+                                                                    .medium),
+                                                          ),
+                                                        ],
                                                       ),
                                                       Spacer(),
                                                       Flexible(
@@ -153,7 +172,7 @@ class _ActivePlayGamePageState extends State<ActivePlayGamePage> {
                                                                       .medium),
                                                             ),
                                                             Text(
-                                                              '${state.activePlayGame?.data?[index].date}',
+                                                              '${DateFormat("dd/MM/yyyy hh:mm").format(DateTime.parse('${state.activePlayGame?.data?[index].date}Z').toLocal())}',
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .black,
