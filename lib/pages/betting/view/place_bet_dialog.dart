@@ -27,6 +27,27 @@ class PlaceBetDialog extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Text(
+                  'Total number selected : ${state.bettingModelList?.where((element) => element.isSelected == true).length} ',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: config.FontFamily().demi),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    'Enter an amount for single number it will be multipled by ${state.bettingModelList?.where((element) => element.isSelected == true).length}  ',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: config.FontFamily().demi),
+                  ),
+                ),
+                SizedBox(
+                  height: config.AppConfig(context).appHeight(2.0),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -149,11 +170,14 @@ class PlaceBetDialog extends StatelessWidget {
                       minWidth: config.AppConfig(context).appWidth(70),
                       onPressed: () {
                         if (state.statusPlaceBet!.isValidated) {
-                          // state.statusPlaceBet!.isSubmissionInProgress
-                          //     ? null
-                          // : context.read<BettingCubit>().doLogin();
+                          state.statusPlaceBet!.isSubmissionInProgress
+                              ? null
+                          : context.read<BettingCubit>().onPlaceBet();
                         }
                       }),
+                ),
+                SizedBox(
+                  height: config.AppConfig(context).appHeight(2.0),
                 ),
               ],
             ),

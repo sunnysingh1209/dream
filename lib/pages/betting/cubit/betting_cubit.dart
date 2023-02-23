@@ -35,15 +35,18 @@ class BettingCubit extends Cubit<BettingState> {
         bettingModelList: bettingModelList));
   }
 
+  void onPureState() {
+    emit(state.copyWith(
+      numberField: Name.pure(),
+      statusPlaceBet: FormzStatus.pure,
+    ));
+  }
+
   void onNumberSelected(int? index) {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     List<BettingModel>? bettingModelList = [...?state.bettingModelList];
     print('Sunny List ${bettingModelList[index!].number}');
-    bettingModelList[index].isSelected =
-        bettingModelList[index].isSelected != null &&
-                bettingModelList[index].isSelected == true
-            ? false
-            : true;
+    bettingModelList[index].isSelected = !bettingModelList[index].isSelected!;
 
     emit(state.copyWith(
         status: FormzStatus.submissionSuccess,
@@ -51,9 +54,26 @@ class BettingCubit extends Cubit<BettingState> {
   }
 
   void onAmountChanged({String? value}) {
+    print(_routeArguments.playGameData?.id);
     emit(state.copyWith(
       numberField: Name.dirty(value!),
       statusPlaceBet: Formz.validate([Name.dirty(value)]),
     ));
+  }
+
+  void onPlaceBet() {
+    emit(
+      state.copyWith(statusPlaceBet: FormzStatus.submissionInProgress),
+    );
+    print(
+        'Number ${state.bettingModelList?.where((element) => element.isSelected == true).map((v) => v.toJson(int.parse(state.numberField!.value.toString()))).toList()}');
+
+    emit(
+      state.copyWith(
+          numberField: Name.pure(),
+          statusPlaceBet: FormzStatus.submissionSuccess),
+    );
+    navigatorKey.currentState
+        ?.pushNamedAndRemoveUntil('/LandingPage', (route) => false);
   }
 }

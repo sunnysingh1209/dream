@@ -10,9 +10,9 @@ class BettingModel {
     amount = json['amount'];
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson(int amount) {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['amount'] = this.amount;
+    data['amount'] = amount;
     data['number'] = this.number;
     return data;
   }

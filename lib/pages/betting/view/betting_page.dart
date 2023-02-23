@@ -58,6 +58,7 @@ class _BettingPageState extends State<BettingPage> {
                         true
                     ? IconButton(
                         onPressed: () {
+                          context.read<BettingCubit>().onPureState();
                           showDialog(
                               context: context,
                               builder: (c) {
