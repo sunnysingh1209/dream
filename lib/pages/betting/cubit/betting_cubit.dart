@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dream_game/helper/route_arguement.dart';
 import 'package:dream_game/model/betting_model.dart';
+import 'package:dream_game/model/name.dart';
 import 'package:dream_game/repos/authentication_repository.dart';
 import 'package:dream_game/repos/user_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -47,5 +48,12 @@ class BettingCubit extends Cubit<BettingState> {
     emit(state.copyWith(
         status: FormzStatus.submissionSuccess,
         bettingModelList: bettingModelList));
+  }
+
+  void onAmountChanged({String? value}) {
+    emit(state.copyWith(
+      numberField: Name.dirty(value!),
+      statusPlaceBet: Formz.validate([Name.dirty(value)]),
+    ));
   }
 }

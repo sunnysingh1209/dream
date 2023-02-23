@@ -1,6 +1,6 @@
 import 'package:dream_game/helper/route_arguement.dart';
 import 'package:dream_game/pages/betting/cubit/betting_cubit.dart';
-import 'package:dream_game/pages/home/cubit/home_cubit.dart';
+import 'package:dream_game/pages/betting/view/place_bet_dialog.dart';
 import 'package:dream_game/repos/authentication_repository.dart';
 import 'package:dream_game/repos/user_repository.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +57,16 @@ class _BettingPageState extends State<BettingPage> {
                             ?.any((element) => element.isSelected == true) ==
                         true
                     ? IconButton(
-                        onPressed: null,
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (c) {
+                                return BlocProvider.value(
+                                  value: context.read<BettingCubit>(),
+                                  child: PlaceBetDialog(),
+                                );
+                              });
+                        },
                         icon: Icon(
                           Icons.check,
                           color: Colors.white,
