@@ -6,6 +6,7 @@ class BettingState extends Equatable {
       this.statusPlaceBet = FormzStatus.pure,
       this.bettingModelList,
       this.totalAmount = 0,
+      this.message = '',
       this.numberField = const Name.pure()});
 
   final FormzStatus? status;
@@ -13,11 +14,13 @@ class BettingState extends Equatable {
   final List<BettingModel>? bettingModelList;
   final Name? numberField;
   final int totalAmount;
+  final String? message;
 
   BettingState copyWith(
       {FormzStatus? status,
       FormzStatus? statusPlaceBet,
       List<BettingModel>? bettingModelList,
+      String? message,
       int? totalAmount,
       Name? numberField}) {
     return BettingState(
@@ -25,11 +28,18 @@ class BettingState extends Equatable {
       numberField: numberField ?? this.numberField,
       status: status ?? this.status,
       totalAmount: totalAmount ?? this.totalAmount,
+      message: message ?? this.message,
       statusPlaceBet: statusPlaceBet ?? this.statusPlaceBet,
     );
   }
 
   @override
-  List<Object> get props =>
-      [bettingModelList!, status!, numberField!, statusPlaceBet!, totalAmount];
+  List<Object> get props => [
+        bettingModelList!,
+        status!,
+        numberField!,
+        statusPlaceBet!,
+        totalAmount,
+        message!
+      ];
 }

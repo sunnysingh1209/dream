@@ -147,4 +147,33 @@ class UserRepository {
       return e;
     }
   }
+
+  Future<dynamic?> placeBetApi({
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      final url =
+          '${GlobalConfiguration().getValue<String>('api_base_url')}User/playgame';
+
+      print(url);
+      print(json.encode(data));
+
+      final client = http.Client();
+
+      final response = await client.post(Uri.parse(url),
+          // headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${user?.data?.tokenResponse?.token}'
+          },
+          body: json.encode(data));
+      if (response.statusCode == 200) {
+        return response;
+      }
+      return response;
+    } catch (e) {
+      print('exception $e');
+      return e;
+    }
+  }
 }

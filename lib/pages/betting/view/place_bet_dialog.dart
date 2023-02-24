@@ -12,7 +12,16 @@ class PlaceBetDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController? placeBetFieldController = TextEditingController();
 
-    return BlocBuilder<BettingCubit, BettingState>(
+    return BlocConsumer<BettingCubit, BettingState>(
+      listener: (context, state) {
+        if (state.statusPlaceBet!.isSubmissionFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('${state.message!}'),
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         return Dialog(
           child: Container(
@@ -52,7 +61,9 @@ class PlaceBetDialog extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                        onPressed: null,
+                        onPressed: () =>
+                            context.read<BettingCubit>().onDecrement(),
+                        // onPressed: null,
                         icon: Icon(
                           Icons.minimize,
                           color: Colors.red,
@@ -125,7 +136,9 @@ class PlaceBetDialog extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                        onPressed: null,
+                        onPressed: () =>
+                            context.read<BettingCubit>().onIncrement(),
+                        // onPressed: null,
                         icon: Icon(
                           Icons.add,
                           color: Colors.green,
@@ -137,6 +150,7 @@ class PlaceBetDialog extends StatelessWidget {
                 ),
                 Container(
                   height: 45,
+                  width: config.AppConfig(context).appWidth(70),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
                       gradient: LinearGradient(
@@ -172,7 +186,7 @@ class PlaceBetDialog extends StatelessWidget {
                         if (state.statusPlaceBet!.isValidated) {
                           state.statusPlaceBet!.isSubmissionInProgress
                               ? null
-                          : context.read<BettingCubit>().onPlaceBet();
+                              : context.read<BettingCubit>().onPlaceBet();
                         }
                       }),
                 ),

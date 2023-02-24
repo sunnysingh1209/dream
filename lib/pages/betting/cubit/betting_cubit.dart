@@ -1,11 +1,16 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
+import 'package:dream_game/helper/helper.dart';
 import 'package:dream_game/helper/route_arguement.dart';
 import 'package:dream_game/model/betting_model.dart';
+import 'package:dream_game/model/error_model.dart';
 import 'package:dream_game/model/name.dart';
 import 'package:dream_game/repos/authentication_repository.dart';
 import 'package:dream_game/repos/user_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
+import 'package:http/http.dart';
 
 part 'betting_state.dart';
 
@@ -61,19 +66,66 @@ class BettingCubit extends Cubit<BettingState> {
     ));
   }
 
-  void onPlaceBet() {
-    emit(
-      state.copyWith(statusPlaceBet: FormzStatus.submissionInProgress),
-    );
-    print(
-        'Number ${state.bettingModelList?.where((element) => element.isSelected == true).map((v) => v.toJson(int.parse(state.numberField!.value.toString()))).toList()}');
+  void onIncrement() {
+    print('Sunny ${state.numberField!.value}');
+    if (state.numberField!.value.trim().isNotEmpty) {
+      int number = int.parse(state.numberField!.value.toString());
+      number += 1;
+      print('Sunny ${number}');
+      emit(state.copyWith(
+        numberField: Name.dirty(number.toString()),
+        statusPlaceBet: Formz.validate([Name.dirty(number.toString())]),
+      ));
+    }
+  }
 
+  void onDecrement() {
+    if (state.numberField!.value.trim().isNotEmpty) {
+      int number = int.parse(state.numberField!.value.toString());
+      number -= 1;
+      emit(state.copyWith(
+        numberField: Name.dirty(number.toString()),
+        statusPlaceBet: Formz.validate([Name.dirty(number.toString())]),
+      ));
+    }
+  }
+
+  void onPlaceBet() async {
     emit(
       state.copyWith(
-          numberField: Name.pure(),
-          statusPlaceBet: FormzStatus.submissionSuccess),
+          statusPlaceBet: FormzStatus.submissionInProgress, message: ''),
     );
-    navigatorKey.currentState
-        ?.pushNamedAndRemoveUntil('/LandingPage', (route) => false);
+
+    print(
+        'Number ${state.bettingModelList?.where((element) => element.isSelected == true).map((v) => v.toJson(int.parse(state.numberField!.value.toString()))).toList()}');
+    var map = Map<String, dynamic>();
+    map['gameId'] = this._routeArguments.playGameData!.id;
+    map['betModels'] = state.bettingModelList
+        ?.where((element) => element.isSelected == true)
+        .map((v) => v.toJson(int.parse(state.numberField!.value.toString())))
+        .toList();
+    Response response = await _userRepository.placeBetApi(data: map);
+    if (response.statusCode == 200) {
+      emit(
+        state.copyWith(
+            numberField: Name.pure(),
+            message: '',
+            statusPlaceBet: FormzStatus.submissionSuccess),
+      );
+      Helper.showToast('Success');
+      navigatorKey.currentState
+          ?.pushNamedAndRemoveUntil('/LandingPage', (route) => false);
+    } else {
+      emit(
+        state.copyWith(
+            statusPlaceBet: FormzStatus.submissionFailure,
+            message: ErrorModel.fromJson(jsonDecode(response.body))
+                .errors
+                ?.join('\n')),
+      );
+    }
+    emit(
+      state.copyWith(statusPlaceBet: FormzStatus.pure, message: ''),
+    );
   }
 }

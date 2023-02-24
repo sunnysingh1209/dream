@@ -115,6 +115,13 @@ class _LoginFormState extends State<LoginForm> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    mobileNoTextEditor!.dispose();
+    super.dispose();
+  }
 }
 
 class _MobilePhone extends StatefulWidget {
