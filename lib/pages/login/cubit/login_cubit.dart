@@ -37,6 +37,8 @@ class LoginCubit extends Cubit<LoginState> {
     if (response.statusCode == 200) {
       navigatorKey.currentState!.pushNamed('/OTPPage',
           arguments: RouteArguments(mobileNo: state.phone.value));
+
+      emit(state.copyWith(status: FormzStatus.submissionSuccess));
     }
   }
 }

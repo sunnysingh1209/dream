@@ -13,15 +13,15 @@ class OtpPage extends StatefulWidget {
   const OtpPage({Key? key}) : super(key: key);
 
   static Route route({RouteArguments? routeArguments}) {
-      return MaterialPageRoute<void>(
-        builder: (_) => BlocProvider<OtpCubit>(
-          create: (BuildContext context) => OtpCubit(
-              userRepository: context.read<UserRepository>(),
-              authenticationRepository: context.read<AuthenticationRepository>(),
-              routeArguments: routeArguments!),
-          child: OtpPage(),
-        ),
-      );
+    return MaterialPageRoute<void>(
+      builder: (_) => BlocProvider<OtpCubit>(
+        create: (BuildContext context) => OtpCubit(
+            userRepository: context.read<UserRepository>(),
+            authenticationRepository: context.read<AuthenticationRepository>(),
+            routeArguments: routeArguments!),
+        child: OtpPage(),
+      ),
+    );
   }
 
   @override
@@ -33,149 +33,152 @@ class _OtpPageWidgetState extends State<OtpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      body: BlocConsumer<OtpCubit, OtpState>(
-        listener: (context, state) {
-          // ScaffoldMessenger.of(context)
-          //     .showSnackBar(SnackBar(content: Text('Error')));
-        },
-        builder: (context, state) {
-          return Stack(
-            children: [
-              Container(
-                color: Theme.of(context).primaryColor,
-                height: config.AppConfig(context).appHeight(100),
-                width: config.AppConfig(context).appWidth(100),
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: config.AppConfig(context).appHeight(14)),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/img/user.png',
-                          fit: BoxFit.contain,
-                          height: config.AppConfig(context).appHeight(10),
-                          width: config.AppConfig(context).appWidth(40),
-                        ),
-                        SizedBox(
-                          height: config.AppConfig(context).appHeight(32.0),
-                        ),
-                        Text(
-                          'Sign in to continue',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: config.FontFamily().book),
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          'We have sent an otp to your mobile number',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontWeight: config.FontFamily().book),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(
-                          height: config.AppConfig(context).appHeight(1.0),
-                        ),
-                        Container(
-                          height: config.AppConfig(context).appHeight(24),
-                          width: config.AppConfig(context).appWidth(90),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(
-                                14,
-                              )),
-                          child: Padding(
-                            padding: EdgeInsets.all(
-                                config.AppConfig(context).appWidth(4)),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Enter Otp.',
-                                  style: TextStyle(
-                                      color: Theme.of(context).primaryColor,
-                                      fontSize: 18,
-                                      fontWeight: config.FontFamily().medium),
-                                ),
-                                SizedBox(
-                                  height:
-                                      config.AppConfig(context).appHeight(1.0),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Flexible(
-                                      child: Pinput(
-                                        separator: SizedBox(width: 10),
-                                        defaultPinTheme: PinTheme(
-                                          width: config.AppConfig(context)
-                                              .appWidth(13),
-                                          height: config.AppConfig(context)
-                                              .appHeight(6),
-                                          textStyle: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 16,
-                                              fontWeight:
-                                                  config.FontFamily().medium),
-                                          decoration: BoxDecoration(
-                                            color: config.AppColors()
-                                                .textFieldBackgroundColor(1),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: SafeArea(
+          child: Scaffold(
+        body: BlocConsumer<OtpCubit, OtpState>(
+          listener: (context, state) {
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text('Error')));
+          },
+          builder: (context, state) {
+            return Stack(
+              children: [
+                Container(
+                  color: Theme.of(context).primaryColor,
+                  height: config.AppConfig(context).appHeight(100),
+                  width: config.AppConfig(context).appWidth(100),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: config.AppConfig(context).appHeight(14)),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'assets/img/user.png',
+                            fit: BoxFit.contain,
+                            height: config.AppConfig(context).appHeight(10),
+                            width: config.AppConfig(context).appWidth(40),
+                          ),
+                          SizedBox(
+                            height: config.AppConfig(context).appHeight(32.0),
+                          ),
+                          Text(
+                            'Sign in to continue',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: config.FontFamily().book),
+                            textAlign: TextAlign.center,
+                          ),
+                          Text(
+                            'We have sent an otp to your mobile number',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: config.FontFamily().book),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(
+                            height: config.AppConfig(context).appHeight(1.0),
+                          ),
+                          Container(
+                            height: config.AppConfig(context).appHeight(24),
+                            width: config.AppConfig(context).appWidth(90),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(
+                                  14,
+                                )),
+                            child: Padding(
+                              padding: EdgeInsets.all(
+                                  config.AppConfig(context).appWidth(4)),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Enter Otp.',
+                                    style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                        fontSize: 18,
+                                        fontWeight: config.FontFamily().medium),
+                                  ),
+                                  SizedBox(
+                                    height: config.AppConfig(context)
+                                        .appHeight(1.0),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Flexible(
+                                        child: Pinput(
+                                          separator: SizedBox(width: 10),
+                                          defaultPinTheme: PinTheme(
+                                            width: config.AppConfig(context)
+                                                .appWidth(13),
+                                            height: config.AppConfig(context)
+                                                .appHeight(6),
+                                            textStyle: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 16,
+                                                fontWeight:
+                                                    config.FontFamily().medium),
+                                            decoration: BoxDecoration(
+                                              color: config.AppColors()
+                                                  .textFieldBackgroundColor(1),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
                                           ),
+                                          length: 6,
+                                          pinputAutovalidateMode:
+                                              PinputAutovalidateMode.onSubmit,
+                                          showCursor: true,
+                                          onChanged: (value) {
+                                            context
+                                                .read<OtpCubit>()
+                                                .onOtpChanged(value);
+                                          },
+                                          onCompleted: (pin) {},
                                         ),
-                                        length: 6,
-                                        pinputAutovalidateMode:
-                                            PinputAutovalidateMode.onSubmit,
-                                        showCursor: true,
-                                        onChanged: (value) {
-                                          context
-                                              .read<OtpCubit>()
-                                              .onOtpChanged(value);
-                                        },
-                                        onCompleted: (pin) {},
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height:
-                                      config.AppConfig(context).appHeight(3.0),
-                                ),
-                                _OtpSubmitButton(
-                                  OtpForm: this,
-                                ),
-                              ],
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: config.AppConfig(context)
+                                        .appHeight(3.0),
+                                  ),
+                                  _OtpSubmitButton(
+                                    OtpForm: this,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: config.AppConfig(context).appHeight(2),
-                        ),
-                        Text(
-                          'Resend Otp',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: config.FontFamily().book),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+                          SizedBox(
+                            height: config.AppConfig(context).appHeight(2),
+                          ),
+                          Text(
+                            'Resend Otp',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: config.FontFamily().book),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
-          );
-        },
-      ),
-    ));
+                )
+              ],
+            );
+          },
+        ),
+      )),
+    );
   }
 }
 
