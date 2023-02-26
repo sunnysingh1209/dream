@@ -21,6 +21,15 @@ class PlaceBetDialog extends StatelessWidget {
             ),
           );
         }
+
+        // print('NumberFiled ${state.numberField!.value ?? ''}');
+        if (!state.statusPlaceBet!.isPure &&
+            placeBetFieldController.text != state.numberField!.value) {
+          placeBetFieldController.text = state.numberField!.value;
+
+          placeBetFieldController.selection = TextSelection.collapsed(
+              offset: placeBetFieldController.text.length);
+        }
       },
       builder: (context, state) {
         return Dialog(

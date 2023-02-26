@@ -80,7 +80,8 @@ class BettingCubit extends Cubit<BettingState> {
   }
 
   void onDecrement() {
-    if (state.numberField!.value.trim().isNotEmpty) {
+    if (state.numberField!.value.trim().isNotEmpty &&
+        int.parse(state.numberField!.value.trim().toString()) != 0) {
       int number = int.parse(state.numberField!.value.toString());
       number -= 1;
       emit(state.copyWith(
