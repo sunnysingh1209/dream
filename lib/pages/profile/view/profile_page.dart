@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:dream_game/helper/app_config.dart' as config;
 import 'package:formz/formz.dart';
+import 'package:intl/intl.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key, required this.parentKey}) : super(key: key);
@@ -33,6 +34,14 @@ class _ProfilePageState extends State<ProfilePage> {
     return SafeArea(
       child: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {
+          if (state.status!.isSubmissionFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('${state.message!}'),
+              ),
+            );
+          }
+
           if (state.statusGetProfile.isSubmissionSuccess) {
             print('Sunnysingh');
             nameTextEditor!.text =
@@ -572,7 +581,9 @@ class _DobWidget extends StatelessWidget {
             onChanged: (text) {
               context.read<ProfileCubit>().onDobChanged(value: text);
             },
+            readOnly: true,
             decoration: InputDecoration(
+              suffixIcon: Icon(Icons.date_range),
               counterText: '',
               errorText: state.dob.invalid ? 'Please enter valid D.O.B' : null,
 
@@ -619,6 +630,26 @@ class _DobWidget extends StatelessWidget {
                 ),
               ),
             ),
+            onTap: () async {
+              DateTime? pickedDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1000),
+                  //DateTime.now() - not to allow to choose before today.
+                  lastDate: DateTime(2101));
+
+              if (pickedDate != null) {
+                String formattedDate =
+                    DateFormat('yyyy-MM-dd').format(pickedDate);
+                //you can implement different kind of Date Format here according to your requirement
+
+                context.read<ProfileCubit>().onDobChanged(value: formattedDate);
+                profileForm!.dobTextEditor!.text = formattedDate;
+                // setState(() {
+                //   dateinput.text = formattedDate; //set output date to TextField value.
+                // });
+              }
+            },
           ),
         );
       });

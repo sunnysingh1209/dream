@@ -121,7 +121,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   void onDobChanged({String? value}) {
     emit(
       state.copyWith(
-          dob: Name.dirty(value.toString()),
+          dob: Name.dirty(value.toString() ),
           status: Formz.validate([
             Name.dirty(value.toString()),
             state.address,
@@ -153,7 +153,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         name: Name.dirty(profileModel.profileData!.name ?? ''),
         state: Name.dirty(profileModel.profileData!.state ?? ''),
         city: Name.dirty(profileModel.profileData!.city ?? ''),
-        dob: Name.dirty(profileModel.profileData!.dob ?? ''),
+        dob: Name.dirty(profileModel.profileData!.dob?.substring(0, 10) ?? ''),
         pincode: Name.dirty(profileModel.profileData!.pincode ?? ''),
         address: Name.dirty(profileModel.profileData!.address1 ?? ''),
         statusGetProfile: FormzStatus.pure));
