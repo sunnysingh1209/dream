@@ -3,6 +3,7 @@ import 'package:dream_game/helper/app_config.dart' as config;
 import 'package:dream_game/pages/active_play_game/view/active_play_game_page.dart';
 import 'package:dream_game/pages/home/view/home_page.dart';
 import 'package:dream_game/pages/profile/view/profile_page.dart';
+import 'package:dream_game/pages/transaction_request/view/transaction_request_page.dart';
 import 'package:dream_game/repos/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +30,10 @@ class _LandingPageState extends State<LandingPage> {
         );
       case 2:
         return new ActivePlayGamePage(
+          parentKey: widget._scaffoldKey,
+        );
+      case 3:
+        return new TransactionRequestPage(
           parentKey: widget._scaffoldKey,
         );
 
@@ -95,6 +100,12 @@ class _LandingPageState extends State<LandingPage> {
                 text: 'Game Result',
                 onTap: () {
                   _onSelectItem(2);
+                }),
+            createDrawerBodyItem(
+                icon: Icons.currency_bitcoin,
+                text: 'Transaction Request',
+                onTap: () {
+                  _onSelectItem(3);
                 }),
             createDrawerBodyItem(
                 icon: Icons.person,

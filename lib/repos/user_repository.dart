@@ -231,4 +231,33 @@ class UserRepository {
       return e;
     }
   }
+
+
+  Future<dynamic?> getPaymentGateway() async {
+    try {
+      final url =
+          '${GlobalConfiguration().getValue<String>('api_base_url')}User/getpaymentgateway';
+
+      final client = http.Client();
+
+      print(url);
+      final response = await client.get(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${user?.data?.tokenResponse?.token}'
+        },
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        return response;
+      }
+      return response;
+    } catch (e) {
+      print('exception $e');
+      return e;
+    }
+  }
+
+
 }
