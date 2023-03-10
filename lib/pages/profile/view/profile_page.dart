@@ -1,3 +1,4 @@
+import 'package:dream_game/helper/common_progress.dart';
 import 'package:dream_game/pages/profile/cubit/profile_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,90 +24,128 @@ class _ProfilePageState extends State<ProfilePage> {
   TextEditingController? pincodeTextEditor = TextEditingController();
   TextEditingController? dobTextEditor = TextEditingController();
 
+  void initState() {
+    context.read<ProfileCubit>().onGetProfile();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: config.AppColors().appbarBackColor(1.0),
-            centerTitle: true,
-            title: Text(
-              'PROFILE',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: config.FontFamily().demi),
-            ),
-            leading: IconButton(
-              onPressed: () => widget.parentKey.currentState!.openDrawer(),
-              icon: Icon(
-                Icons.menu,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          body: Stack(
-            children: [
-              Container(
-                width: config.AppConfig(context).appWidth(100.0),
-                height: config.AppConfig(context).appHeight(100.0),
-                padding:
-                    EdgeInsets.all(config.AppConfig(context).appWidth(4.0)),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      _NameWidget(
-                        profileForm: this,
-                      ),
-                      SizedBox(
-                        height: config.AppConfig(context).appHeight(1.0),
-                      ),
-                      _AddressWidget(
-                        profileForm: this,
-                      ),
-                      SizedBox(
-                        height: config.AppConfig(context).appHeight(1.0),
-                      ),
-                      _StateWidget(
-                        profileForm: this,
-                      ),
-                      SizedBox(
-                        height: config.AppConfig(context).appHeight(1.0),
-                      ),
-                      _CityWidget(
-                        profileForm: this,
-                      ),
-                      SizedBox(
-                        height: config.AppConfig(context).appHeight(1.0),
-                      ),
-                      _PincodeWidget(
-                        profileForm: this,
-                      ),
-                      SizedBox(
-                        height: config.AppConfig(context).appHeight(1.0),
-                      ),
-                      _DobWidget(
-                        profileForm: this,
-                      ),
-                      SizedBox(
-                        height: config.AppConfig(context).appHeight(1.0),
-                      ),
-                    ],
+      child: BlocConsumer<ProfileCubit, ProfileState>(
+        listener: (context, state) {
+          if (state.statusGetProfile.isSubmissionSuccess) {
+            print('Sunnysingh');
+            nameTextEditor!.text =
+                context.read<ProfileCubit>().state.name.value;
+            addressTextEditor!.text =
+                context.read<ProfileCubit>().state.address!.value;
+            cityTextEditor!.text =
+                context.read<ProfileCubit>().state.city!.value;
+            stateTextEditor!.text =
+                context.read<ProfileCubit>().state.state!.value;
+            pincodeTextEditor!.text =
+                context.read<ProfileCubit>().state.pincode!.value;
+            dobTextEditor!.text = context.read<ProfileCubit>().state.dob!.value;
+          }
+        },
+        builder: (context, state) {
+          return Scaffold(
+              appBar: AppBar(
+                backgroundColor: config.AppColors().appbarBackColor(1.0),
+                centerTitle: true,
+                title: Text(
+                  'PROFILE',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: config.FontFamily().demi),
+                ),
+                leading: IconButton(
+                  onPressed: () => widget.parentKey.currentState!.openDrawer(),
+                  icon: Icon(
+                    Icons.menu,
+                    color: Colors.white,
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding:
-                      EdgeInsets.all(config.AppConfig(context).appWidth(4.0)),
-                  child: _PrifileButton(
-                    profileForm: this,
+              body: Stack(
+                children: [
+                  Container(
+                    width: config.AppConfig(context).appWidth(100.0),
+                    height: config.AppConfig(context).appHeight(100.0),
+                    padding:
+                        EdgeInsets.all(config.AppConfig(context).appWidth(4.0)),
+                    margin: EdgeInsets.only(
+                        bottom: config.AppConfig(context).appHeight(6.0)),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'assets/img/user.png',
+                            fit: BoxFit.contain,
+                            height: config.AppConfig(context).appHeight(10),
+                            width: config.AppConfig(context).appWidth(40),
+                          ),
+                          SizedBox(
+                            height: config.AppConfig(context).appHeight(4.0),
+                          ),
+                          _NameWidget(
+                            profileForm: this,
+                          ),
+                          SizedBox(
+                            height: config.AppConfig(context).appHeight(1.0),
+                          ),
+                          _StateWidget(
+                            profileForm: this,
+                          ),
+                          SizedBox(
+                            height: config.AppConfig(context).appHeight(1.0),
+                          ),
+                          _CityWidget(
+                            profileForm: this,
+                          ),
+                          SizedBox(
+                            height: config.AppConfig(context).appHeight(1.0),
+                          ),
+                          _PincodeWidget(
+                            profileForm: this,
+                          ),
+                          SizedBox(
+                            height: config.AppConfig(context).appHeight(1.0),
+                          ),
+                          _DobWidget(
+                            profileForm: this,
+                          ),
+                          SizedBox(
+                            height: config.AppConfig(context).appHeight(1.0),
+                          ),
+                          _AddressWidget(
+                            profileForm: this,
+                          ),
+                          SizedBox(
+                            height: config.AppConfig(context).appHeight(1.0),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              )
-            ],
-          )),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: EdgeInsets.all(
+                          config.AppConfig(context).appWidth(4.0)),
+                      child: _PrifileButton(
+                        profileForm: this,
+                      ),
+                    ),
+                  ),
+                  state.statusGetProfile!.isSubmissionInProgress
+                      ? CommonProgressWidget()
+                      : Container(),
+                ],
+              ));
+        },
+      ),
     );
   }
 }
@@ -124,7 +163,6 @@ class __NameWidgetState extends State<_NameWidget> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraint) {
-      print('constraibtWidth ${constraint.maxWidth}');
       return BlocBuilder<ProfileCubit, ProfileState>(builder: (context, state) {
         return Container(
           alignment: Alignment.center,
@@ -135,11 +173,11 @@ class __NameWidgetState extends State<_NameWidget> {
                 color: Colors.black,
                 fontSize: 16,
                 fontWeight: config.FontFamily().medium),
-            textInputAction: TextInputAction.done,
-            keyboardType: TextInputType.phone,
-            maxLength: 14,
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.name,
+            maxLength: 25,
             onChanged: (text) {
-              // context.read<LoginCubit>().onPhoneNnumberChange(value: text);
+              context.read<ProfileCubit>().onNameChanged(value: text);
             },
             decoration: InputDecoration(
               counterText: '',
@@ -214,10 +252,10 @@ class _AddressWidget extends StatelessWidget {
                 fontSize: 16,
                 fontWeight: config.FontFamily().medium),
             textInputAction: TextInputAction.done,
-            keyboardType: TextInputType.phone,
-            maxLength: 14,
+            keyboardType: TextInputType.streetAddress,
+            maxLength: 100,
             onChanged: (text) {
-              // context.read<LoginCubit>().onPhoneNnumberChange(value: text);
+              context.read<ProfileCubit>().onAddressChanged(value: text);
             },
             decoration: InputDecoration(
               counterText: '',
@@ -292,11 +330,11 @@ class _StateWidget extends StatelessWidget {
                 color: Colors.black,
                 fontSize: 16,
                 fontWeight: config.FontFamily().medium),
-            textInputAction: TextInputAction.done,
-            keyboardType: TextInputType.phone,
-            maxLength: 14,
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.name,
+            maxLength: 20,
             onChanged: (text) {
-              // context.read<LoginCubit>().onPhoneNnumberChange(value: text);
+              context.read<ProfileCubit>().onStateChanged(value: text);
             },
             decoration: InputDecoration(
               counterText: '',
@@ -371,11 +409,11 @@ class _CityWidget extends StatelessWidget {
                 color: Colors.black,
                 fontSize: 16,
                 fontWeight: config.FontFamily().medium),
-            textInputAction: TextInputAction.done,
-            keyboardType: TextInputType.phone,
-            maxLength: 14,
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.text,
+            maxLength: 20,
             onChanged: (text) {
-              // context.read<LoginCubit>().onPhoneNnumberChange(value: text);
+              context.read<ProfileCubit>().onCityChanged(value: text);
             },
             decoration: InputDecoration(
               counterText: '',
@@ -449,11 +487,11 @@ class _PincodeWidget extends StatelessWidget {
                 color: Colors.black,
                 fontSize: 16,
                 fontWeight: config.FontFamily().medium),
-            textInputAction: TextInputAction.done,
-            keyboardType: TextInputType.phone,
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.text,
             maxLength: 14,
             onChanged: (text) {
-              // context.read<LoginCubit>().onPhoneNnumberChange(value: text);
+              context.read<ProfileCubit>().onPinCodeChanged(value: text);
             },
             decoration: InputDecoration(
               counterText: '',
@@ -528,11 +566,11 @@ class _DobWidget extends StatelessWidget {
                 color: Colors.black,
                 fontSize: 16,
                 fontWeight: config.FontFamily().medium),
-            textInputAction: TextInputAction.done,
-            keyboardType: TextInputType.phone,
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.datetime,
             maxLength: 14,
             onChanged: (text) {
-              // context.read<LoginCubit>().onPhoneNnumberChange(value: text);
+              context.read<ProfileCubit>().onDobChanged(value: text);
             },
             decoration: InputDecoration(
               counterText: '',
@@ -595,51 +633,48 @@ class _PrifileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProfileCubit, ProfileState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        return Container(
-          height: 45,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.topRight,
-                colors: state.status.isValidated
-                    ? [
-                        Theme.of(context).primaryColor,
-                        Theme.of(context).primaryColor,
-                      ]
-                    : [
-                        Theme.of(context).primaryColorLight,
-                        Theme.of(context).primaryColorLight,
-                      ],
-              )),
-          child: MaterialButton(
-              child: state.status.isSubmissionInProgress
-                  ? const Center(
-                      child: CupertinoActivityIndicator(
-                        color: Colors.white,
-                      ),
-                    )
-                  : Text(
-                      'UPDATE',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: config.FontFamily().medium),
+    return BlocBuilder<ProfileCubit, ProfileState>(builder: (context, state) {
+      return Container(
+        height: 45,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.topRight,
+              colors: state.status.isValidated
+                  ? [
+                      Theme.of(context).primaryColor,
+                      Theme.of(context).primaryColor,
+                    ]
+                  : [
+                      Theme.of(context).primaryColorLight,
+                      Theme.of(context).primaryColorLight,
+                    ],
+            )),
+        child: MaterialButton(
+            child: state.status.isSubmissionInProgress
+                ? const Center(
+                    child: CupertinoActivityIndicator(
+                      color: Colors.white,
                     ),
-              height: config.AppConfig(context).appHeight(6),
-              minWidth: config.AppConfig(context).appWidth(100),
-              onPressed: () {
-                if (state.status.isValidated) {
-                  state.status.isSubmissionInProgress
-                      ? null
-                      : context.read<ProfileCubit>().doUpdate();
-                }
-              }),
-        );
-      },
-    );
+                  )
+                : Text(
+                    'UPDATE',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: config.FontFamily().medium),
+                  ),
+            height: config.AppConfig(context).appHeight(6),
+            minWidth: config.AppConfig(context).appWidth(100),
+            onPressed: () {
+              if (state.status.isValidated) {
+                state.status.isSubmissionInProgress
+                    ? null
+                    : context.read<ProfileCubit>().doUpdate();
+              }
+            }),
+      );
+    });
   }
 }

@@ -176,4 +176,59 @@ class UserRepository {
       return e;
     }
   }
+
+  Future<dynamic?> getProfile() async {
+    try {
+      final url =
+          '${GlobalConfiguration().getValue<String>('api_base_url')}Profile/getprofile';
+
+      final client = http.Client();
+
+      print(url);
+      final response = await client.get(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${user?.data?.tokenResponse?.token}'
+        },
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        return response;
+      }
+      return response;
+    } catch (e) {
+      print('exception $e');
+      return e;
+    }
+  }
+
+  Future<dynamic?> updateProfile({
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      final url =
+          '${GlobalConfiguration().getValue<String>('api_base_url')}Profile/updateprofile';
+
+      print(url);
+      print(json.encode(data));
+
+      final client = http.Client();
+
+      final response = await client.put(Uri.parse(url),
+          // headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${user?.data?.tokenResponse?.token}'
+          },
+          body: json.encode(data));
+      if (response.statusCode == 200) {
+        return response;
+      }
+      return response;
+    } catch (e) {
+      print('exception $e');
+      return e;
+    }
+  }
 }

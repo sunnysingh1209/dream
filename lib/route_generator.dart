@@ -41,7 +41,8 @@ class RouteGenerator {
                       ..onGetGamePlayGame(),
                   ),
                   BlocProvider<ProfileCubit>(
-                    create: (BuildContext context) => ProfileCubit(),
+                    create: (BuildContext context) => ProfileCubit(
+                        userRepository: context.read<UserRepository>()),
                   ),
                   BlocProvider<ActivePlayGameCubit>(
                     create: (BuildContext context) =>
