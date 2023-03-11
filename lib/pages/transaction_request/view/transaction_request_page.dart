@@ -52,7 +52,15 @@ class _TransactionRequestPageState extends State<TransactionRequestPage> {
     return SafeArea(
         child: BlocConsumer<TransactionRequestCubit, TransactionRequestState>(
       listener: (context, state) {
-        if (state.status!.isSubmissionFailure) {
+        if (state.statusPaymentMethods!.isSubmissionFailure ||
+            state.status!.isSubmissionFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('${state.message!}'),
+            ),
+          );
+        } else if (state.status!.isSubmissionSuccess &&
+            state.message!.isNotEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('${state.message!}'),
@@ -93,7 +101,33 @@ class _TransactionRequestPageState extends State<TransactionRequestPage> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: config.AppConfig(context).appHeight(4.0),
+                        height: config.AppConfig(context).appHeight(2.0),
+                      ),
+                      Container(
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              'assets/img/whatsapp.png',
+                              fit: BoxFit.contain,
+                            ),
+                            SizedBox(
+                              width: config.AppConfig(context).appWidth(2.0),
+                            ),
+                            Text(
+                              '+91 9041913313',
+                              overflow: TextOverflow.clip,
+                              softWrap: true,
+                              maxLines: 1,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: config.FontFamily().medium),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: config.AppConfig(context).appHeight(2.0),
                       ),
                       _TransactionIDWidget(
                         requestForm: this,
@@ -171,7 +205,7 @@ class _TransactionRequestPageState extends State<TransactionRequestPage> {
                   ),
                 ),
               ),
-              state.status!.isSubmissionInProgress
+              state.statusPaymentMethods!.isSubmissionInProgress
                   ? CommonProgressWidget()
                   : Container(),
             ],
@@ -443,14 +477,11 @@ class _PaymentDropdownWidget extends StatelessWidget {
 
   _PaymentDropdownWidget({Key? key, this.requestForm}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraint) {
       return BlocConsumer<TransactionRequestCubit, TransactionRequestState>(
-        listener: (context, state) {
-
-        },
+        listener: (context, state) {},
         buildWhen: (previous, current) =>
             previous.paymentGatewayModel != current.paymentGatewayModel,
         builder: (context, state) {
@@ -504,7 +535,7 @@ class _PaymentDropdownWidget extends StatelessWidget {
                     .read<TransactionRequestCubit>()
                     .onPaymentDropDownChanged(value: newValue);
               },
-              items: state.status.isSubmissionSuccess
+              items: state.statusPaymentMethods.isSubmissionSuccess
                   ? state.paymentGatewayModel!.data!.map((item) {
                       return DropdownMenuItem(
                         value: item.toString(),

@@ -232,7 +232,6 @@ class UserRepository {
     }
   }
 
-
   Future<dynamic?> getPaymentGateway() async {
     try {
       final url =
@@ -260,4 +259,76 @@ class UserRepository {
   }
 
 
+  Future<dynamic?> uploadTransImage(
+      {required Map<String, String> data, required String filePath}) async {
+    try {
+      final url =
+          '${GlobalConfiguration().getValue<String>('api_base_url')}User/transactionimage';
+
+      print(url);
+      print(data);
+
+      //for multipartrequest
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+
+      //for token
+      request.headers
+          .addAll({"Authorization": "Bearer ${user!.data!.tokenResponse!.token}"});
+
+      //for image and videos and files
+
+      if (filePath.toString() != '') {
+        request.files
+            .add(await http.MultipartFile.fromPath("image", filePath));
+      }
+
+      request.fields.addAll(data);
+      // request.fields['timings'] = '{}';
+      print('request ${request.url}  ${request.fields}');
+      //for completeing the request
+      var response = await request.send();
+
+      //for getting and decoding the response into json format
+      var responsed = await http.Response.fromStream(response);
+
+      print('response ${jsonDecode(responsed.body)}');
+      if (response.statusCode == 200) {
+        print("SUCCESS");
+        return responsed;
+      }
+      return responsed;
+    } catch (e) {
+      print('exception $e');
+    }
+  }
+
+
+
+  Future<dynamic?> transactionRequest({
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      final url =
+          '${GlobalConfiguration().getValue<String>('api_base_url')}User/transactionrequest';
+
+      print(url);
+      print(json.encode(data));
+
+      final client = http.Client();
+
+      final response = await client.post(Uri.parse(url),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${user?.data?.tokenResponse?.token}'
+          },
+          body: json.encode(data));
+      if (response.statusCode == 200) {
+        return response;
+      }
+      return response;
+    } catch (e) {
+      print('exception $e');
+      return e;
+    }
+  }
 }

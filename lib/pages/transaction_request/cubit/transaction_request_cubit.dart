@@ -21,7 +21,57 @@ class TransactionRequestCubit extends Cubit<TransactionRequestState> {
 
   final UserRepository _userRepository;
 
-  void doRequest() {}
+  void uploadTransactionRequest(String? imagePath) async {
+    Map<String, String> map = {};
+    map['transactionid'] = state.transactionID.value;
+    map['gatewayName'] = state.paymentMode!;
+    map['screenShot'] = imagePath!;
+    map['amount'] = state.amount.value;
+
+    Response response =
+        await this._userRepository.transactionRequest(data: map);
+    if (response.statusCode == 200) {
+      emit(state.copyWith(
+          status: FormzStatus.submissionSuccess,
+          message: jsonDecode(response.body)['data']));
+    } else {
+      emit(
+        state.copyWith(
+            status: FormzStatus.submissionFailure,
+            message: ErrorModel.fromJson(jsonDecode(response.body))
+                .errors
+                ?.join('\n')),
+      );
+    }
+    emit(
+      state.copyWith(status: FormzStatus.pure, message: ''),
+    );
+  }
+
+  void doRequest() async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress, message: ''));
+    Map<String, String> map = {};
+    map['transactionid'] = state.transactionID.value;
+
+    Response response = await this
+        ._userRepository
+        .uploadTransImage(data: map, filePath: state.imagePath.value);
+    if (response.statusCode == 200) {
+      print('uploadPath ${jsonDecode(response.body)['data']}');
+      uploadTransactionRequest(jsonDecode(response.body)['data']);
+    } else {
+      emit(
+        state.copyWith(
+            status: FormzStatus.submissionFailure,
+            message: ErrorModel.fromJson(jsonDecode(response.body))
+                .errors
+                ?.join('\n')),
+      );
+    }
+    emit(
+      state.copyWith(status: FormzStatus.pure, message: ''),
+    );
+  }
 
   void onTransactionIDChanged({String? value}) {
     emit(
@@ -66,24 +116,25 @@ class TransactionRequestCubit extends Cubit<TransactionRequestState> {
   }
 
   void onGetPaymentMethods() async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    emit(
+        state.copyWith(statusPaymentMethods: FormzStatus.submissionInProgress));
     Response response = await this._userRepository.getPaymentGateway();
     if (response.statusCode == 200) {
       emit(state.copyWith(
-          status: FormzStatus.submissionSuccess,
+          statusPaymentMethods: FormzStatus.submissionSuccess,
           paymentGatewayModel:
               PaymentGatewayModel.fromJson(jsonDecode(response.body))));
     } else {
       emit(
         state.copyWith(
-            status: FormzStatus.submissionFailure,
+            statusPaymentMethods: FormzStatus.submissionFailure,
             message: ErrorModel.fromJson(jsonDecode(response.body))
                 .errors
                 ?.join('\n')),
       );
     }
     emit(
-      state.copyWith(status: FormzStatus.pure, message: ''),
+      state.copyWith(statusPaymentMethods: FormzStatus.pure, message: ''),
     );
   }
 }
