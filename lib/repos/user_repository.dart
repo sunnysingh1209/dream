@@ -258,7 +258,6 @@ class UserRepository {
     }
   }
 
-
   Future<dynamic?> uploadTransImage(
       {required Map<String, String> data, required String filePath}) async {
     try {
@@ -272,14 +271,13 @@ class UserRepository {
       var request = http.MultipartRequest('POST', Uri.parse(url));
 
       //for token
-      request.headers
-          .addAll({"Authorization": "Bearer ${user!.data!.tokenResponse!.token}"});
+      request.headers.addAll(
+          {"Authorization": "Bearer ${user!.data!.tokenResponse!.token}"});
 
       //for image and videos and files
 
       if (filePath.toString() != '') {
-        request.files
-            .add(await http.MultipartFile.fromPath("image", filePath));
+        request.files.add(await http.MultipartFile.fromPath("image", filePath));
       }
 
       request.fields.addAll(data);
@@ -301,8 +299,6 @@ class UserRepository {
       print('exception $e');
     }
   }
-
-
 
   Future<dynamic?> transactionRequest({
     required Map<String, dynamic> data,
