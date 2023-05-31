@@ -21,34 +21,34 @@ class _ActivePlayGamePageState extends State<ActivePlayGamePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Theme.of(context).focusColor.withOpacity(0.05),
-          appBar: AppBar(
-            backgroundColor: config.AppColors().appbarBackColor(1.0),
-            centerTitle: true,
-            title: Text(
-              'ACTIVE GAME',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: config.FontFamily().demi),
-            ),
-            leading: IconButton(
-              onPressed: () => widget.parentKey.currentState!.openDrawer(),
-              icon: Icon(
-                Icons.menu,
-                color: Colors.white,
+            backgroundColor: Theme.of(context).focusColor.withOpacity(0.05),
+            appBar: AppBar(
+              backgroundColor: config.AppColors().appbarBackColor(1.0),
+              centerTitle: true,
+              title: Text(
+                'ACTIVE GAME',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: config.FontFamily().demi),
               ),
-            ),
-            actions: [
-              IconButton(
+              leading: IconButton(
                 onPressed: () => widget.parentKey.currentState!.openDrawer(),
                 icon: Icon(
-                  Icons.search,
+                  Icons.menu,
                   color: Colors.white,
                 ),
-              )
-            ],
-          ),
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () => widget.parentKey.currentState!.openDrawer(),
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
+                )
+              ],
+            ),
           body: BlocConsumer<ActivePlayGameCubit, ActivePlayGameState>(
             listener: (context, state) {
               // TODO: implement listener
@@ -172,7 +172,8 @@ class _ActivePlayGamePageState extends State<ActivePlayGamePage> {
                                                                       .medium),
                                                             ),
                                                             Text(
-                                                              '${DateFormat("dd/MM/yyyy hh:mm").format(DateTime.parse('${state.activePlayGame?.data?[index].date}Z').toLocal())}',
+                                                              // '${state.activePlayGame?.data?[index].date}',
+                                                              '${DateFormat("dd/MM/yyyy hh:mm").format(DateTime.parse('${state.activePlayGame?.data?[index].date}'))}',
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .black,

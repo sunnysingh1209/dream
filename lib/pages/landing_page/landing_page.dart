@@ -3,6 +3,7 @@ import 'package:dream_game/helper/app_config.dart' as config;
 import 'package:dream_game/pages/active_play_game/view/active_play_game_page.dart';
 import 'package:dream_game/pages/home/view/home_page.dart';
 import 'package:dream_game/pages/profile/view/profile_page.dart';
+import 'package:dream_game/pages/transaction/view/transaction_page.dart';
 import 'package:dream_game/pages/transaction_request/view/transaction_request_page.dart';
 import 'package:dream_game/repos/authentication_repository.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,6 @@ class LandingPage extends StatefulWidget {
   State<LandingPage> createState() => _LandingPageState();
 }
 
-
 class _LandingPageState extends State<LandingPage> {
   int _selectedDrawerIndex = 0;
 
@@ -26,7 +26,7 @@ class _LandingPageState extends State<LandingPage> {
           parentKey: widget._scaffoldKey,
         );
       case 1:
-        return new ProfilePage(
+        return new TransactionPage(
           parentKey: widget._scaffoldKey,
         );
       case 2:
@@ -35,6 +35,10 @@ class _LandingPageState extends State<LandingPage> {
         );
       case 3:
         return new TransactionRequestPage(
+          parentKey: widget._scaffoldKey,
+        );
+      case 4:
+        return new ProfilePage(
           parentKey: widget._scaffoldKey,
         );
 
@@ -112,7 +116,7 @@ class _LandingPageState extends State<LandingPage> {
                 icon: Icons.person,
                 text: 'Profile',
                 onTap: () {
-                  _onSelectItem(1);
+                  _onSelectItem(4);
                 }),
             createDrawerBodyItem(
                 icon: Icons.feedback,

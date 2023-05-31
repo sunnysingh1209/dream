@@ -1,35 +1,30 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:bloc/bloc.dart';
-import 'package:dream_game/model/game_play_game.dart';
+import 'package:dream_game/model/user_transaction.dart';
 import 'package:dream_game/model/user_wallet.dart';
-import 'package:dream_game/repos/authentication_repository.dart';
-import 'package:dream_game/repos/user_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
+
+import '../../../repos/user_repository.dart';
+
 import 'package:http/http.dart';
 
-part 'home_state.dart';
+part 'transaction_state.dart';
 
-class HomeCubit extends Cubit<HomeState> {
-  HomeCubit({required UserRepository userRepository})
-      : this._userRepository = userRepository,
-        super(HomeState(
-            userWallet: new UserWallet(), gamePlayGame: new GamePlayGame())) {}
+class TransactionCubit extends Cubit<TransactionState> {
+  TransactionCubit(this._userRepository)
+      : super(TransactionState(
+            userTransaction: new UserTransaction(),
+            userWallet: new UserWallet()));
 
   final UserRepository _userRepository;
 
-  void onClick() async {
-    print('Sunny Singh bhullar ');
-  }
-
-  void onGetUserWallet() async {
+  void onGetTransactionUserWallet() async {
     print('WalletModule ');
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     Response response = await this._userRepository.userWallet();
     if (response.statusCode == 200) {
-      print('WalletModule ${jsonDecode(response.body)}');
       emit(state.copyWith(
           status: FormzStatus.submissionSuccess,
           userWallet: UserWallet.fromJson(jsonDecode(response.body))));
@@ -37,13 +32,14 @@ class HomeCubit extends Cubit<HomeState> {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
   }
 
-  void onGetGamePlayGame() async {
+  void onGetUserTransaction() async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    Response response = await this._userRepository.gamePlayGames();
+    Response response = await this._userRepository.getUserTransaction();
     if (response.statusCode == 200) {
       emit(state.copyWith(
           status: FormzStatus.submissionSuccess,
-          gamePlayGame: GamePlayGame.fromJson(jsonDecode(response.body))));
+          userTransaction:
+              UserTransaction.fromJson(jsonDecode(response.body))));
     } else
       emit(state.copyWith(status: FormzStatus.submissionFailure));
   }

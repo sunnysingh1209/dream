@@ -26,18 +26,27 @@ class UserWallet {
 class WalletData {
   double? winningBalance;
   double? balance;
+  double? pendingRequest;
+  double? totalBalance;
 
-  WalletData({this.winningBalance = 0, this.balance = 0});
+  WalletData(
+      {this.winningBalance = 0,
+      this.balance = 0,
+      this.pendingRequest = 0,
+      this.totalBalance = 0});
 
   WalletData.fromJson(Map<String, dynamic> json) {
     winningBalance = json['winningBalance'];
     balance = json['balance'];
+    pendingRequest = json['pendingRequest'].toDouble();
+    totalBalance = (winningBalance! + balance!);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['winningBalance'] = this.winningBalance;
     data['balance'] = this.balance;
+    data['pendingRequest'] = this.pendingRequest;
     return data;
   }
 }

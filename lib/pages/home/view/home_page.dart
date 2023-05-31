@@ -20,6 +20,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    context.read<HomeCubit>().onGetGamePlayGame();
+    context.read<HomeCubit>().onGetUserWallet();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -98,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             Text(
-                              '\$${state.userWallet?.wallletData?.balance ?? 0.0}',
+                              '\$${state.userWallet?.wallletData?.totalBalance ?? 0.0}',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 24,
@@ -111,6 +118,7 @@ class _HomePageState extends State<HomePage> {
                     !state.status!.isSubmissionInProgress
                         ? Positioned(
                             top: 180.0,
+                            bottom: 0,
                             child: Container(
                               width: config.AppConfig(context).appWidth(100.0),
                               height:

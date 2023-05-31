@@ -1,5 +1,5 @@
 {
   "base_url": "https://mitabl.xcelanceweb.com/",
-  "api_base_url": "https://betking.azurewebsites.net/api/",
+  "api_base_url": "https://betkingserver.azurewebsites.net/api/",
   "image_base_url": "https://mitabl.xcelanceweb.com/"
 }

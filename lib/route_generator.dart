@@ -7,6 +7,7 @@ import 'package:dream_game/pages/landing_page/landing_page.dart';
 import 'package:dream_game/pages/login/view/login_form.dart';
 import 'package:dream_game/pages/otp/view/otp_page.dart';
 import 'package:dream_game/pages/profile/cubit/profile_cubit.dart';
+import 'package:dream_game/pages/transaction/cubit/transaction_cubit.dart';
 import 'package:dream_game/pages/transaction_request/cubit/transaction_request_cubit.dart';
 import 'package:dream_game/repos/user_repository.dart';
 import 'package:dream_game/splash.dart';
@@ -38,8 +39,7 @@ class RouteGenerator {
                   BlocProvider<HomeCubit>(
                     create: (BuildContext context) => HomeCubit(
                         userRepository: context.read<UserRepository>())
-                      ..onGetUserWallet()
-                      ..onGetGamePlayGame(),
+
                   ),
                   BlocProvider<ProfileCubit>(
                     create: (BuildContext context) => ProfileCubit(
@@ -49,6 +49,10 @@ class RouteGenerator {
                     create: (BuildContext context) =>
                         ActivePlayGameCubit(context.read<UserRepository>())
                           ..onGetActivePlayGame(),
+                  ),
+                  BlocProvider<TransactionCubit>(
+                    create: (BuildContext context) =>
+                        TransactionCubit(context.read<UserRepository>()),
                   ),
                   BlocProvider<TransactionRequestCubit>(
                       create: (BuildContext context) => TransactionRequestCubit(
