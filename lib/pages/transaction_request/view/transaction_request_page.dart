@@ -91,12 +91,12 @@ class _TransactionRequestPageState extends State<TransactionRequestPage> {
           body: Stack(
             children: [
               Container(
-                width: config.AppConfig(context).appWidth(100.0),
-                height: config.AppConfig(context).appHeight(100.0),
-                padding:
-                    EdgeInsets.all(config.AppConfig(context).appWidth(4.0)),
-                margin: EdgeInsets.only(
-                    bottom: config.AppConfig(context).appHeight(6.0)),
+                  width: config.AppConfig(context).appWidth(100.0),
+                  height: config.AppConfig(context).appHeight(100.0),
+                  padding:
+                      EdgeInsets.all(config.AppConfig(context).appWidth(4.0)),
+                  margin: EdgeInsets.only(
+                      bottom: config.AppConfig(context).appHeight(6.0)),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [

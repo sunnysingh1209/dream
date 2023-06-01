@@ -96,6 +96,69 @@ class UserRepository {
     }
   }
 
+  Future<dynamic?> cancelWithdrawlReqest({
+    String? id,
+  }) async {
+    try {
+      final url =
+          '${GlobalConfiguration().getValue<String>('api_base_url')}User/withdrawalcancel/${id}';
+
+      print(url);
+
+      final client = http.Client();
+
+      final response = await client.delete(
+        Uri.parse(url),
+        // headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+        headers: {
+          'accept': '*/*',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${user?.data?.tokenResponse?.token}'
+        },
+      );
+      if (response.statusCode == 200) {
+        return response;
+      }
+
+      print('sfsdf' + response.body);
+      return response;
+    } catch (e) {
+      print('exception $e');
+      return e;
+    }
+  }
+
+  Future<dynamic?> withdrawlRequest({
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      final url =
+          '${GlobalConfiguration().getValue<String>('api_base_url')}User/withdrawalrequest';
+
+      print(url);
+
+      final client = http.Client();
+
+      final response = await client.post(Uri.parse(url),
+          // headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+          headers: {
+            'accept': '*/*',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${user?.data?.tokenResponse?.token}'
+          },
+          body: json.encode(data));
+      if (response.statusCode == 200) {
+        return response;
+      }
+
+      print('sfsdf' + response.body);
+      return response;
+    } catch (e) {
+      print('exception $e');
+      return e;
+    }
+  }
+
   Future<dynamic?> gamePlayGames() async {
     try {
       final url =
@@ -147,7 +210,6 @@ class UserRepository {
       return e;
     }
   }
-
 
   Future<dynamic?> getUserTransaction() async {
     try {

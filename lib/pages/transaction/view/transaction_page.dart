@@ -31,7 +31,20 @@ class _TransactionPageState extends State<TransactionPage> {
       backgroundColor: Theme.of(context).focusColor.withOpacity(0.05),
       body: BlocConsumer<TransactionCubit, TransactionState>(
         listener: (context, state) {
-          // TODO: implement listener
+          if (state.statusWithDrawl!.isSubmissionFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('${state.message!}'),
+              ),
+            );
+          } else if (state.statusWithDrawl!.isSubmissionSuccess &&
+              state.message!.isNotEmpty) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('${state.message!}'),
+              ),
+            );
+          }
         },
         builder: (context, state) {
           return Container(
@@ -209,15 +222,32 @@ class _TransactionPageState extends State<TransactionPage> {
                             children: [
                               Padding(
                                 padding: EdgeInsets.only(
+                                    right:
+                                        config.AppConfig(context).appWidth(2),
                                     left:
                                         config.AppConfig(context).appWidth(2)),
-                                child: Text(
-                                  'Transaction',
-                                  style: TextStyle(
-                                      color: config.AppColors()
-                                          .homeTitleColor(1.0),
-                                      fontSize: 18,
-                                      fontWeight: config.FontFamily().medium),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Transaction',
+                                      style: TextStyle(
+                                          color: config.AppColors()
+                                              .homeTitleColor(1.0),
+                                          fontSize: 18,
+                                          fontWeight:
+                                              config.FontFamily().medium),
+                                    ),
+                                    Text(
+                                      'Withdraw Req : ${state.userWallet?.wallletData?.pendingRequest ?? '0'}',
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 18,
+                                          fontWeight:
+                                              config.FontFamily().medium),
+                                    ),
+                                  ],
                                 ),
                               ),
                               Expanded(
@@ -239,7 +269,7 @@ class _TransactionPageState extends State<TransactionPage> {
                                                   .appWidth(2)),
                                           child: Container(
                                             height: config.AppConfig(context)
-                                                .appHeight(14),
+                                                .appHeight(18),
                                             decoration: BoxDecoration(
                                                 color: Colors.white,
                                                 borderRadius: BorderRadius.all(
@@ -343,7 +373,54 @@ class _TransactionPageState extends State<TransactionPage> {
                                                           ),
                                                         ),
                                                       ],
-                                                    )
+                                                    ),
+                                                    Spacer(),
+                                                    state
+                                                                .userTransaction
+                                                                ?.userTransactionData?[
+                                                                    index]
+                                                                ?.transactionId ==
+                                                            'PENDING'
+                                                        ? Expanded(
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                  'Cancel Request',
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          18,
+                                                                      fontWeight:
+                                                                          config.FontFamily()
+                                                                              .demi),
+                                                                ),
+                                                                InkWell(
+                                                                  onTap: () {
+                                                                    context
+                                                                        .read<
+                                                                            TransactionCubit>()
+                                                                        .doCancelWithdrwal(state
+                                                                            .userTransaction
+                                                                            ?.userTransactionData![index]);
+                                                                  },
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .cancel_outlined,
+                                                                    color: Colors
+                                                                        .red,
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          )
+                                                        : Container(),
                                                   ],
                                                 )),
                                           ),

@@ -37,6 +37,7 @@ class OtpCubit extends Cubit<OtpState> {
     map['mobileNo'] = this._routeArguments.mobileNo;
     map['otp'] = state.otp.value;
     Response response = await _authenticationRepository.logIn(data: map);
+    print('ResponseSunny' + response.body);
     if (response.statusCode == 200) {
       _userRepository.setCurrentUser(response.body).then((value) {
         emit(state.copyWith(status: FormzStatus.submissionSuccess));

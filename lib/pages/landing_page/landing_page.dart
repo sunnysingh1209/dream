@@ -5,6 +5,7 @@ import 'package:dream_game/pages/home/view/home_page.dart';
 import 'package:dream_game/pages/profile/view/profile_page.dart';
 import 'package:dream_game/pages/transaction/view/transaction_page.dart';
 import 'package:dream_game/pages/transaction_request/view/transaction_request_page.dart';
+import 'package:dream_game/pages/withdraw_request/view/withdraw_request.dart';
 import 'package:dream_game/repos/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,6 +40,10 @@ class _LandingPageState extends State<LandingPage> {
         );
       case 4:
         return new ProfilePage(
+          parentKey: widget._scaffoldKey,
+        );
+        case 5:
+        return new WithdrawRequestPage(
           parentKey: widget._scaffoldKey,
         );
 
@@ -117,6 +122,12 @@ class _LandingPageState extends State<LandingPage> {
                 text: 'Profile',
                 onTap: () {
                   _onSelectItem(4);
+                }),
+            createDrawerBodyItem(
+                icon: Icons.currency_bitcoin,
+                text: 'Withdrawl Request',
+                onTap: () {
+                  _onSelectItem(5);
                 }),
             createDrawerBodyItem(
                 icon: Icons.feedback,

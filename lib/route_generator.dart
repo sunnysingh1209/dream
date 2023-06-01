@@ -9,6 +9,7 @@ import 'package:dream_game/pages/otp/view/otp_page.dart';
 import 'package:dream_game/pages/profile/cubit/profile_cubit.dart';
 import 'package:dream_game/pages/transaction/cubit/transaction_cubit.dart';
 import 'package:dream_game/pages/transaction_request/cubit/transaction_request_cubit.dart';
+import 'package:dream_game/pages/withdraw_request/cubit/withdraw_request_cubit.dart';
 import 'package:dream_game/repos/user_repository.dart';
 import 'package:dream_game/splash.dart';
 import 'package:flutter/material.dart';
@@ -37,10 +38,8 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => MultiBlocProvider(providers: [
                   BlocProvider<HomeCubit>(
-                    create: (BuildContext context) => HomeCubit(
-                        userRepository: context.read<UserRepository>())
-
-                  ),
+                      create: (BuildContext context) => HomeCubit(
+                          userRepository: context.read<UserRepository>())),
                   BlocProvider<ProfileCubit>(
                     create: (BuildContext context) => ProfileCubit(
                         userRepository: context.read<UserRepository>()),
@@ -53,6 +52,10 @@ class RouteGenerator {
                   BlocProvider<TransactionCubit>(
                     create: (BuildContext context) =>
                         TransactionCubit(context.read<UserRepository>()),
+                  ),
+                  BlocProvider<WithdrawRequestCubit>(
+                    create: (BuildContext context) =>
+                        WithdrawRequestCubit(context.read<UserRepository>()),
                   ),
                   BlocProvider<TransactionRequestCubit>(
                       create: (BuildContext context) => TransactionRequestCubit(

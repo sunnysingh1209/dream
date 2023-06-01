@@ -48,11 +48,9 @@ class AuthenticationRepository {
 
       final response = await client.post(Uri.parse(url),
           // headers: {HttpHeaders.contentTypeHeader: 'application/json'},
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: {'Content-Type': 'application/json', 'accept': '*/*'},
           body: json.encode(data));
-      print(response.body);
+      print('response ' + response.body);
       if (response.statusCode == 200) {
         return response;
       }
@@ -90,6 +88,8 @@ class AuthenticationRepository {
       return e;
     }
   }
+
+
 
   Future<dynamic?> forgot({
     required Map<String, dynamic> data,
