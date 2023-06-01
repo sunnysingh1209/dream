@@ -240,7 +240,7 @@ class _TransactionPageState extends State<TransactionPage> {
                                               config.FontFamily().medium),
                                     ),
                                     Text(
-                                      'Withdraw Req : ${state.userWallet?.wallletData?.pendingRequest ?? '0'}',
+                                      'Withdrawl Req : ${state.userWallet?.wallletData?.pendingRequest ?? '0'}',
                                       style: TextStyle(
                                           color: Colors.red,
                                           fontSize: 18,
@@ -393,8 +393,8 @@ class _TransactionPageState extends State<TransactionPage> {
                                                                 Text(
                                                                   'Cancel Request',
                                                                   style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
+                                                                      color: config.AppColors()
+                                                                          .homeTitleColor(1.0),
                                                                       fontSize:
                                                                           18,
                                                                       fontWeight:
